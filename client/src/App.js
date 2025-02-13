@@ -1,11 +1,47 @@
 import React from "react";
 import Header from "./components/Header";
+import Body from "./components/Body";
+import rockstar1 from "./assets/rockstar-1.png"; // Import the image
 
 function App() {
+  // Define five content blocks with alternating image alignments
+  const blocks = [
+    {
+      title: "Block 1: Welcome to Los Santos",
+      text: "Discover the vibrant and gritty world of Los Santos. Experience the thrill from the very first block.",
+      imageSrc: rockstar1,
+      imageAlignment: "left",
+    },
+    {
+      title: "Block 2: Adventures Await",
+      text: "Embark on a journey full of surprises and challenges as you navigate the urban jungle.",
+      imageSrc: rockstar1,
+      imageAlignment: "right",
+    },
+    {
+      title: "Block 3: The Underworld",
+      text: "Dive deep into the dark corners of the city, where secrets and danger lurk at every turn.",
+      imageSrc: rockstar1,
+      imageAlignment: "left",
+    },
+    {
+      title: "Block 4: Hidden Secrets",
+      text: "Uncover hidden stories and untold legends that make Los Santos truly unforgettable.",
+      imageSrc: rockstar1,
+      imageAlignment: "right",
+    },
+    {
+      title: "Block 5: The Final Showdown",
+      text: "Prepare for the ultimate challenge as you face the city's most formidable foes.",
+      imageSrc: rockstar1,
+      imageAlignment: "left",
+    },
+  ];
+
   return (
     <div>
-      <Header /> {/* Add the Header component */}
-      <h1>Game Website - Setup Complete</h1>
+      <Header />
+      <Body blocks={blocks} />
     </div>
   );
 }
