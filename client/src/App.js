@@ -1,9 +1,12 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
+import Login from "./pages/Login";
 import rockstar1 from "./assets/rockstar-1.png"; // Import the image
 
-function App() {
+// Define the HomePage using your existing Header and Body components
+function HomePage() {
   // Define five content blocks with alternating image alignments
   const blocks = [
     {
@@ -43,6 +46,17 @@ function App() {
       <Header />
       <Body blocks={blocks} />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
 
