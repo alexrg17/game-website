@@ -1,31 +1,25 @@
-require("dotenv").config(); // To load .env variables
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
-const helmet = require("helmet");
-const morgan = require("morgan");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db"); // Database connection
+const authRoutes = require("./routes/authRoutes"); // Authentication routes
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const PORT = process.env.PORT || 5001; // Default port is now 5001
+const PORT = process.env.PORT || 5001;
+
+// Connect to the database
+connectDB();
 
 // Middleware
-app.use(express.json());
-app.use(cors());
-app.use(helmet());
-app.use(morgan("dev"));
+app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // Parse incoming JSON requests
 
-// MongoDB Connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
-
-// Health Check Route
-app.get("/api/health-check", (req, res) => {
-  res.json({ status: "Server is running!" });
-});
+// Routes
+app.use("/api/auth", authRoutes); // Authentication routes for registration
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
