@@ -1,5 +1,5 @@
-/* General Styling for the Login Page */
-.login-page {
+/* General Styling for the Register Page */
+.register-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,21 +8,21 @@
     135deg,
     #111,
     #222
-  ); /* Dark gradient for the background */
+  ); /* Dark gradient background */
   color: #fff;
   font-family: "Montserrat", sans-serif;
   overflow: hidden; /* Prevents scrollbars on mobile */
 }
 
-/* Login Container */
-.login-container {
+/* Register Container */
+.register-container {
   background: rgba(0, 0, 0, 0.7); /* Slightly transparent background */
   padding: 3rem 3.5rem;
   border-radius: 20px; /* Rounded edges for the form */
   width: 100%;
   max-width: 500px;
   text-align: center;
-  backdrop-filter: blur(15px); /* Stronger blur effect for glassmorphism */
+  backdrop-filter: blur(15px); /* Glassmorphism effect */
   box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5); /* Adding depth with shadow */
   border: 1px solid rgba(255, 255, 255, 0.2); /* Light border for separation */
   display: flex;
@@ -42,7 +42,7 @@ h1 {
 
 /* Input Fields */
 input {
-  width: 90%;
+  width: 90%; /* Ensure inputs take up the full width of the container */
   padding: 1.2rem;
   margin: 1rem 0;
   background: rgba(255, 255, 255, 0.15); /* Semi-transparent white background */
@@ -62,64 +62,8 @@ input:focus {
   background: rgba(255, 255, 255, 0.2); /* Slight background change on focus */
 }
 
-/* "Remember Me" Checkbox */
-.login-options {
-  display: flex;
-  align-items: center; /* Align checkbox with label */
-  margin-bottom: 2rem;
-  width: 100%; /* Ensures full width for checkbox + label */
-  justify-content: flex-start; /* Aligns to the left */
-  color: #fff;
-  font-size: 1rem;
-}
-
-.login-options label {
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-}
-
-/* Custom "Remember Me" styling */
-.login-options input[type="checkbox"] {
-  margin-right: 1rem;
-  width: 20px;
-  height: 20px;
-  background-color: #333;
-  border-radius: 5px;
-  border: 2px solid #ffcc00; /* Yellow border */
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.login-options input[type="checkbox"]:checked {
-  background-color: #ffcc00; /* Yellow when checked */
-  transform: scale(1.2); /* Slight grow effect */
-}
-
-/* Styling for the "Remember Me" label text */
-.login-options span {
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  margin-top: 2px;
-}
-
-/* Forgot Password Link */
-.forgot-password {
-  color: #ffcc00;
-  font-size: 0.9rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  margin-top: 1rem; /* Add margin from the input fields */
-  align-self: flex-end; /* Align it to the right side of the container */
-  width: 100%; /* Ensures it spans the full width of the form */
-  text-align: right; /* Align the text to the right */
-}
-
-.forgot-password:hover {
-  color: #fff;
-}
-
-/* Login Button */
-.login-button {
+/* Register Button */
+.register-button {
   width: 100%;
   padding: 1.2rem;
   background-color: #ffcc00; /* Rockstar yellow */
@@ -133,19 +77,19 @@ input:focus {
     box-shadow 0.3s ease;
 }
 
-.login-button:hover {
+.register-button:hover {
   transform: scale(1.05); /* Slight scaling on hover */
   background-color: #e6b800; /* Darker yellow on hover */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Adding shadow on hover */
 }
 
-.login-button:active {
+.register-button:active {
   transform: scale(0.98); /* Slight shrinking effect on click */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Shadow when clicked */
 }
 
 /* Error Message Styling */
-.login-error {
+.register-error {
   background-color: #f44336; /* Red background for errors */
   color: #fff;
   padding: 1rem;
@@ -168,13 +112,13 @@ input:focus {
   }
 }
 
-.login-container {
+.register-container {
   animation: slideIn 0.5s ease-out;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .login-container {
+  .register-container {
     padding: 2rem;
   }
 
@@ -187,7 +131,7 @@ input:focus {
     font-size: 1rem;
   }
 
-  .login-button {
+  .register-button {
     font-size: 1.2rem;
     padding: 1rem;
   }
