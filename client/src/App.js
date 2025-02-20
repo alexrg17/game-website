@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Login from "./pages/Login";
+import Register from "./pages/Register"; // Import Register page
 import rockstar1 from "./assets/rockstar-1.png"; // Import the image
 
 // Define the HomePage using your existing Header and Body components
@@ -54,6 +55,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />{" "}
+        {/* Add route for Register page */}
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
