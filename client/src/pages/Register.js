@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
 import "../styles/Register.scss";
 
 const Register = () => {
+  const navigate = useNavigate(); // Create the navigate function
   // Define state for form inputs
   const [formData, setFormData] = useState({
     name: "",
@@ -9,25 +12,48 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission (e.g., API call or validation)
-    console.log(formData);
+    setError("");
+    setSuccess("");
+
+    try {
+      console.log("Submitting registration:", formData);
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/register",
+        formData
+      );
+      console.log("Registration successful:", response.data);
+      setSuccess(response.data.message || "User registered successfully!");
+      // Optionally, reset the form fields
+      setFormData({ name: "", username: "", email: "", password: "" });
+      // Redirect to the homepage after a short delay (e.g., 1.5 seconds)
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
+    } catch (err) {
+      console.error("Registration error:", err.response || err);
+      setError(err.response?.data?.message || "Server error");
+    }
   };
 
   return (
     <div className="register-page">
       <div className="register-container">
         <h1>Create an Account</h1>
+        {error && <div className="register-error">{error}</div>}
+        {success && <div className="register-success">{success}</div>}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
