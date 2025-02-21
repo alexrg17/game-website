@@ -17,7 +17,7 @@ app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse incoming JSON requests
 
 // Routes
-app.use("/api/auth", authRoutes); // Authentication routes for registration
+app.use("/api/auth", authRoutes); // Use auth routes under /api/auth
 
 // Start the server
 app.listen(PORT, () => {
