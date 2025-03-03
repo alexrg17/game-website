@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // Import AuthContext
 import "../styles/Register.scss";
 
 const Register = () => {
-  const navigate = useNavigate(); // Create the navigate function
+  const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext); // Get auth state
+
+  // If the user is already authenticated, redirect to homepage
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
   // Define state for form inputs
   const [formData, setFormData] = useState({
     name: "",
@@ -38,7 +48,7 @@ const Register = () => {
       setSuccess(response.data.message || "User registered successfully!");
       // Optionally, reset the form fields
       setFormData({ name: "", username: "", email: "", password: "" });
-      // Redirect to the homepage after a short delay (e.g., 1.5 seconds)
+      // Redirect to the homepage (or login page) after a short delay (e.g., 1.5 seconds)
       setTimeout(() => {
         navigate("/");
       }, 1500);

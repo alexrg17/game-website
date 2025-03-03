@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
   try {
     // Find user by email
     const user = await User.findOne({ email });
-    // For security, use a generic error message for both not-found and password mismatch.
+    // Use a generic error message for both not-found and password mismatch
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -61,9 +61,9 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate a JWT token
+    // Generate a JWT token including username in the payload
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "1h" } // You can move this to an env variable if needed
     );
