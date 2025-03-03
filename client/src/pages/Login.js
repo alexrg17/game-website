@@ -1,15 +1,25 @@
-import React, { useState } from "react";
-import axios from "axios"; // Import axios for HTTP requests
-import { useNavigate } from "react-router-dom"; // Import useNavigate for redirection
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext"; // Import AuthContext
 import "../styles/Login.scss";
 
 const Login = () => {
-  const navigate = useNavigate(); // Create the navigate function
+  const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext); // Get auth state
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  // If already authenticated, redirect to homepage
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -30,7 +40,7 @@ const Login = () => {
       );
       setSuccess(response.data.message || "Login successful!");
 
-      // Optionally, store the token in localStorage
+      // Store the token in localStorage
       localStorage.setItem("token", response.data.token);
 
       // Redirect to the homepage after a short delay (1 second)
@@ -72,9 +82,9 @@ const Login = () => {
               />
               Remember Me
             </label>
-            <a href="#" className="forgot-password">
+            <button type="button" className="forgot-password">
               Forgot Password?
-            </a>
+            </button>
           </div>
           <button type="submit" className="login-button">
             Login

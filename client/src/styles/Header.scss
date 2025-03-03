@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Define SCSS variables for easier maintenance and a consistent design
 $primary-color: #ffffff;
 $hover-color: #ffcc00; // Accent color on hover
@@ -80,6 +82,46 @@ $icon-size: 1.8rem;
 
       &:focus {
         outline: none; // Remove default focus outline
+      }
+    }
+  }
+
+  // New section: Profile dropdown menu for authenticated users
+  &__profile {
+    position: relative;
+    margin-right: 1rem;
+
+    .header__dropdown {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #444;
+      border-radius: 5px;
+      padding: 0.5rem;
+      width: 150px;
+      z-index: 10;
+      text-align: center;
+
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: #fff; // Ensure text is white
+      }
+
+      button {
+        margin-top: 0.5rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+        background-color: $hover-color;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: color.adjust($hover-color, $lightness: 10%);
+        }
       }
     }
   }

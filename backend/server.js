@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db"); // Database connection
 const authRoutes = require("./routes/authRoutes"); // Authentication routes
+const playerScoreRoutes = require("./routes/playerProgressRoutes"); // Player score routes
 
 dotenv.config(); // Load environment variables from .env file
 
@@ -13,11 +14,12 @@ const PORT = process.env.PORT || 5001;
 connectDB();
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(cors());
 app.use(express.json()); // Parse incoming JSON requests
 
 // Routes
 app.use("/api/auth", authRoutes); // Use auth routes under /api/auth
+app.use("/api/playerScore", playerScoreRoutes); // Use player score routes under /api/playerScore
 
 // Start the server
 app.listen(PORT, () => {
