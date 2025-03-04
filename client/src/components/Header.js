@@ -21,6 +21,10 @@ function Header() {
     navigate("/login");
   };
 
+  const goToLeaderboard = () => {
+    navigate("/leaderboard"); // This will navigate to the leaderboard page
+  };
+
   return (
     <header className="header">
       {/* Logo Section */}
@@ -35,8 +39,12 @@ function Header() {
             </button>
           </li>
           <li>
-            <button type="button" className="header__nav-button">
-              Store
+            <button
+              type="button"
+              className="header__nav-button"
+              onClick={goToLeaderboard} // On click, navigate to the leaderboard page
+            >
+              Leaderboard
             </button>
           </li>
           <li>
