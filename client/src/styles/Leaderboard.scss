@@ -1,25 +1,44 @@
-.leaderboard {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background-color: #1a1a1a;
-  color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+@use "sass:color";
 
+// Adjust these variables to match your existing theme
+$primary-bg: #111; // Dark background
+$secondary-bg: #222; // Slightly lighter background
+$accent-color: #ffcc00; // Rockstar-style yellow
+$text-color: #fff; // White text
+$border-radius: 8px;
+$box-shadow-color: rgba(0, 0, 0, 0.5);
+
+// Container for the leaderboard
+.leaderboard {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, $primary-bg, $secondary-bg);
+  color: $text-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 10px $box-shadow-color;
+
+  // Title at the top
   h2 {
     text-align: center;
     margin-bottom: 1rem;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: $accent-color; // Make the title stand out
   }
 
+  // Loading, error, or empty states
   &__loading,
   &__error,
   &__empty {
     text-align: center;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin: 2rem 0;
+    color: $text-color;
   }
 
+  // List container for leaderboard items
   &__list {
     list-style: none;
     margin: 0;
@@ -27,30 +46,36 @@
 
     .leaderboard__item {
       display: flex;
-      justify-content: space-between;
-      background-color: #333;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
       align-items: center;
+      justify-content: space-between;
+      background-color: color.scale($secondary-bg, $lightness: 10%);
+      margin-bottom: 0.5rem;
+      padding: 0.8rem 1rem;
+      border-radius: $border-radius;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #444;
+        background-color: color.scale($secondary-bg, $lightness: 20%);
+      }
+
+      .leaderboard__rank {
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-right: 1rem;
+        color: $accent-color;
+      }
+
+      .leaderboard__username {
+        flex: 1;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .leaderboard__score {
+        font-size: 1rem;
+        font-weight: bold;
+        color: $accent-color;
       }
     }
-  }
-
-  &__rank {
-    font-weight: bold;
-    margin-right: 1rem;
-  }
-
-  &__username {
-    flex: 1;
-  }
-
-  &__score {
-    font-weight: bold;
-    margin-left: 1rem;
   }
 }
