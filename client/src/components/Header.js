@@ -21,8 +21,16 @@ function Header() {
     navigate("/login"); // Redirect to login page
   };
 
+  const goToGame = () => {
+    navigate("/game"); // On click, navigate to the game page
+  };
+
   const goToLeaderboard = () => {
     navigate("/leaderboard"); // On click, navigate to the leaderboard page
+  };
+
+  const goToHome = () => {
+    navigate("/"); // On click, navigate to the homepage
   };
 
   if (loading) {
@@ -32,14 +40,24 @@ function Header() {
   return (
     <header className="header">
       {/* Logo Section */}
-      <img src={RockstarLogo} alt="Rockstar Logo" className="header__logo" />
+      <img
+        src={RockstarLogo}
+        alt="Rockstar Logo"
+        className="header__logo"
+        onClick={goToHome} // On click, navigate to the homepage
+        style={{ cursor: "pointer" }} // Change cursor to pointer to indicate it's clickable
+      />
 
       {/* Navigation Section */}
       <nav className="header__nav" role="navigation">
         <ul className="header__nav-list">
           <li>
-            <button type="button" className="header__nav-button">
-              Games
+            <button
+              type="button"
+              className="header__nav-button"
+              onClick={goToGame}
+            >
+              Game
             </button>
           </li>
           <li>
