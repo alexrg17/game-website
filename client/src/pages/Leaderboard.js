@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
+import Header from "../components/Header"; // Import the Header component
 import "../styles/Leaderboard.scss";
 
 function Leaderboard() {
@@ -47,42 +48,51 @@ function Leaderboard() {
   // Render states
   if (loading) {
     return (
-      <div className="leaderboard">
-        <h2>Leaderboard</h2>
-        <div className="leaderboard__loading">Loading...</div>
-      </div>
+      <>
+        <Header /> {/* Include the Header component */}
+        <div className="leaderboard">
+          <h2>Leaderboard</h2>
+          <div className="leaderboard__loading">Loading...</div>
+        </div>
+      </>
     );
   }
 
   if (error) {
     return (
-      <div className="leaderboard">
-        <h2>Leaderboard</h2>
-        <div className="leaderboard__error">{error}</div>
-      </div>
+      <>
+        <Header /> {/* Include the Header component */}
+        <div className="leaderboard">
+          <h2>Leaderboard</h2>
+          <div className="leaderboard__error">{error}</div>
+        </div>
+      </>
     );
   }
 
   // Render the leaderboard data
   return (
-    <div className="leaderboard">
-      <h2>Leaderboard</h2>
-      {leaderboard.length === 0 ? (
-        <div className="leaderboard__empty">No scores available yet.</div>
-      ) : (
-        <ul className="leaderboard__list">
-          {leaderboard.map((record, index) => (
-            <li key={record._id} className="leaderboard__item">
-              <span className="leaderboard__rank">{index + 1}.</span>
-              <span className="leaderboard__username">
-                {record.userId?.username || "Unknown"}
-              </span>
-              <span className="leaderboard__score">{record.highScore}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <>
+      <Header /> {/* Include the Header component */}
+      <div className="leaderboard">
+        <h2>Leaderboard</h2>
+        {leaderboard.length === 0 ? (
+          <div className="leaderboard__empty">No scores available yet.</div>
+        ) : (
+          <ul className="leaderboard__list">
+            {leaderboard.map((record, index) => (
+              <li key={record._id} className="leaderboard__item">
+                <span className="leaderboard__rank">{index + 1}.</span>
+                <span className="leaderboard__username">
+                  {record.userId?.username || "Unknown"}
+                </span>
+                <span className="leaderboard__score">{record.highScore}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 }
 

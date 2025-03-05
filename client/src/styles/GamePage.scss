@@ -1,0 +1,47 @@
+// GamePage.scss
+
+.game-page {
+  background-color: #1a1a1a; // Dark background color
+  color: #fff; // White text for contrast against dark background
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; // Full screen height
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.game-container {
+  background-color: #333; // Lighter background for the iframe container
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); // Soft shadow around the game container
+  width: 80%; // Limit the width to prevent it from being too large
+  max-width: 1200px; // Max width for larger screens
+}
+
+.game-container iframe {
+  width: 100%; // Ensure the iframe takes up the full width of the container
+  height: 700px; // Adjust height for better viewing
+  border: none;
+  border-radius: 10px;
+}
+
+.game-header {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffcc00; // Accent color for header text
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .game-container iframe {
+    height: 500px;
+  }
+}
