@@ -7,23 +7,27 @@ import "../styles/Header.scss";
 
 function Header() {
   const navigate = useNavigate();
-  const { isAuthenticated, user, logout } = useContext(AuthContext);
+  const { isAuthenticated, user, logout, loading } = useContext(AuthContext); // Destructure loading
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const toggleDropdown = (e) => {
     e.stopPropagation();
-    setDropdownOpen((prev) => !prev);
+    setDropdownOpen((prev) => !prev); // Toggle the dropdown state
   };
 
   const handleLogout = (e) => {
     e.stopPropagation();
-    logout();
-    navigate("/login");
+    logout(); // Log the user out
+    navigate("/login"); // Redirect to login page
   };
 
   const goToLeaderboard = () => {
-    navigate("/leaderboard"); // This will navigate to the leaderboard page
+    navigate("/leaderboard"); // On click, navigate to the leaderboard page
   };
+
+  if (loading) {
+    return <div>Loading...</div>; // Show loading state until authentication is confirmed
+  }
 
   return (
     <header className="header">
@@ -70,14 +74,14 @@ function Header() {
               type="button"
               aria-label="Profile"
               className="header__icon-button"
-              onClick={toggleDropdown}
+              onClick={toggleDropdown} // Show/Hide dropdown when clicked
             >
               <FaUserCircle />
             </button>
             {dropdownOpen && (
               <div
                 className="header__dropdown"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()} // Prevent click from closing dropdown immediately
               >
                 <p>{user ? user.username || user.email : "User"}</p>
                 <button onClick={handleLogout}>Logout</button>
@@ -89,7 +93,7 @@ function Header() {
             type="button"
             aria-label="Profile"
             className="header__icon-button"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/login")} // Redirect to login page if user is not authenticated
           >
             <FaUserCircle />
           </button>
