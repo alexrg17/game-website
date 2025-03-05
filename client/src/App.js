@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/Login"; // Correct import for Login component
 import Leaderboard from "./pages/Leaderboard";
 import GamePage from "./pages/GamePage"; // Import the GamePage component
 import rockstar1 from "./assets/rockstar-1.png"; // Import the image
@@ -43,25 +43,22 @@ function HomePage() {
     },
   ];
 
-  return (
-    <div>
-      <Header />
-      <Body blocks={blocks} />
-    </div>
-  );
+  return <Body blocks={blocks} />;
 }
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/game" element={<GamePage />} />
-        <Route path="/" element={<HomePage />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/game" element={<GamePage />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
