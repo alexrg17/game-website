@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { jwtDecode } from "jwt-decode"; // Using jwt-decode for decoding the JWT
+import { jwtDecode } from "jwt-decode"; // Correct import for jwt-decode
 
 export const AuthContext = createContext();
 
@@ -40,7 +40,16 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        setIsAuthenticated,
+        user,
+        setUser,
+        logout,
+        loading,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
