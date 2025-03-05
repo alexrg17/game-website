@@ -2,11 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext"; // Import AuthContext
+import { jwtDecode } from "jwt-decode"; // Correct import for jwt-decode
 import "../styles/Login.scss";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useContext(AuthContext); // Get auth state
+  const { isAuthenticated, setIsAuthenticated, setUser } =
+    useContext(AuthContext); // Get auth state and setters
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +44,21 @@ const Login = () => {
 
       // Store the token in localStorage
       localStorage.setItem("token", response.data.token);
+
+      // Update the authentication state
+      let decoded;
+      try {
+        decoded = jwtDecode(response.data.token);
+        setUser({
+          email: decoded.email,
+          userId: decoded.userId,
+          username: decoded.username,
+        });
+        setIsAuthenticated(true);
+      } catch (decodeError) {
+        setError("Invalid token");
+        return;
+      }
 
       // Redirect to the homepage after a short delay (1 second)
       setTimeout(() => {
