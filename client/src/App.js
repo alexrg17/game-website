@@ -3,13 +3,28 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Body from "./components/Body";
 import Login from "./pages/Login";
-import Register from "./pages/Register"; // Import Register page
-import Leaderboard from "./pages/Leaderboard"; // Import Leaderboard page
+import Register from "./pages/Register";
+import Leaderboard from "./pages/Leaderboard";
 import rockstar1 from "./assets/rockstar-1.png"; // Import the image
+
+// Temporary page for the game
+function GamePage() {
+  return (
+    <div>
+      <Header />
+      <iframe
+        title="WebGL Game"
+        src={`${process.env.PUBLIC_URL}/BuildDB/index.html`} // Ensure this path matches your folder structure
+        width="100%"
+        height="600px"
+        style={{ border: "none" }}
+      ></iframe>
+    </div>
+  );
+}
 
 // Define the HomePage using your existing Header and Body components
 function HomePage() {
-  // Define five content blocks with alternating image alignments
   const blocks = [
     {
       title: "Block 1: Welcome to Los Santos",
@@ -58,6 +73,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/game" element={<GamePage />} /> {/* Game page route */}
         <Route path="/" element={<HomePage />} />
       </Routes>
     </Router>
