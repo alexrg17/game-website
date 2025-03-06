@@ -3,10 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header";
 import Body from "./components/Body";
-import Login from "./pages/Login"; // Correct import for Login component
+import Login from "./pages/Login";
+import Register from "./pages/Register"; // Import the Register component
 import Leaderboard from "./pages/Leaderboard";
-import GamePage from "./pages/GamePage"; // Import the GamePage component
-import rockstar1 from "./assets/rockstar-1.png"; // Import the image
+import GamePage from "./pages/GamePage";
+import rockstar1 from "./assets/rockstar-1.png";
 
 // Define the HomePage using your existing Header and Body components
 function HomePage() {
@@ -56,6 +57,8 @@ function App() {
           <Route path="/game" element={<GamePage />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />{" "}
+          {/* Add the register route */}
         </Routes>
       </Router>
     </AuthProvider>
