@@ -69,6 +69,10 @@ const Login = () => {
     }
   };
 
+  const handleRegister = () => {
+    navigate("/register"); // Navigate to the register page
+  };
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -107,6 +111,13 @@ const Login = () => {
             Login
           </button>
         </form>
+        <button
+          type="button"
+          className="register-button"
+          onClick={handleRegister}
+        >
+          Register
+        </button>
       </div>
     </div>
   );

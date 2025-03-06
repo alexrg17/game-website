@@ -128,7 +128,9 @@ input:focus {
 }
 
 /* Login Button */
-.login-button {
+.login-button,
+.register-button {
+  margin-bottom: 1.5rem;
   width: 100%;
   padding: 1.2rem;
   background-color: #ffcc00; /* Rockstar yellow */
@@ -142,13 +144,15 @@ input:focus {
     box-shadow 0.3s ease;
 }
 
-.login-button:hover {
+.login-button:hover,
+.register-button:hover {
   transform: scale(1.05); /* Slight scaling on hover */
   background-color: #e6b800; /* Darker yellow on hover */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Adding shadow on hover */
 }
 
-.login-button:active {
+.login-button:active,
+.register-button:active {
   transform: scale(0.98); /* Slight shrinking effect on click */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Shadow when clicked */
 }
@@ -196,7 +200,8 @@ input:focus {
     font-size: 1rem;
   }
 
-  .login-button {
+  .login-button,
+  .register-button {
     font-size: 1.2rem;
     padding: 1rem;
   }
