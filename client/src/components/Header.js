@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
-import RockstarLogo from "../assets/rockstar-logo.svg";
+import StarilumLogo from "../assets/starilum-logo.png"; // Updated import for Starilum logo
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/Header.scss";
@@ -40,8 +40,8 @@ function Header() {
   return (
     <header className="header">
       <img
-        src={RockstarLogo}
-        alt="Rockstar Logo"
+        src={StarilumLogo} // Updated to use Starilum logo
+        alt="Starilum Logo"
         className="header__logo"
         onClick={goToHome}
         style={{ cursor: "pointer" }}
