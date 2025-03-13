@@ -35,7 +35,7 @@ h1 {
   font-family: "Bebas Neue", sans-serif;
   font-size: 3rem;
   margin-bottom: 2rem;
-  color: #ffcc00; /* Rockstar Yellow */
+  color: #07ff00; /* Rockstar Yellow */
   text-transform: uppercase;
   letter-spacing: 2px;
 }
@@ -57,8 +57,8 @@ input {
 /* Hover and Focus effects for inputs */
 input:hover,
 input:focus {
-  border-color: #ffcc00; /* Yellow border on hover/focus */
-  box-shadow: 0 0 8px rgba(255, 204, 0, 0.7); /* Glowing effect */
+  border-color: #07ff00; /* Yellow border on hover/focus */
+  box-shadow: 0 0 8px rgba(0, 198, 17, 0.7); /* Glowing effect */
   background: rgba(255, 255, 255, 0.2); /* Slight background change on focus */
 }
 
@@ -86,12 +86,12 @@ input:focus {
   height: 20px;
   background-color: #333;
   border-radius: 5px;
-  border: 2px solid #ffcc00; /* Yellow border */
+  border: 2px solid #07ff00; /* Yellow border */
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .login-options input[type="checkbox"]:checked {
-  background-color: #ffcc00; /* Yellow when checked */
+  background-color: #07ff00; /* Yellow when checked */
   transform: scale(1.2); /* Slight grow effect */
 }
 
@@ -106,7 +106,7 @@ input:focus {
 .forgot-password {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background-color: #ffcc00;
+  background-color: #07ff00;
   color: #111;
   font-size: 0.9rem;
   text-decoration: none;
@@ -118,7 +118,7 @@ input:focus {
 
 .forgot-password:hover {
   transform: scale(1.05); /* Slight scaling on hover */
-  background-color: #e6b800; /* Darker yellow on hover */
+  background-color: #07ff00; /* Darker yellow on hover */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Adding shadow on hover */
 }
 
@@ -133,7 +133,7 @@ input:focus {
   margin-bottom: 1.5rem;
   width: 100%;
   padding: 1.2rem;
-  background-color: #ffcc00; /* Rockstar yellow */
+  background-color: #07ff00; /* Rockstar yellow */
   color: #111;
   font-size: 1.3rem;
   border: none;
@@ -147,7 +147,7 @@ input:focus {
 .login-button:hover,
 .register-button:hover {
   transform: scale(1.05); /* Slight scaling on hover */
-  background-color: #e6b800; /* Darker yellow on hover */
+  background-color: #07ff00; /* Darker yellow on hover */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Adding shadow on hover */
 }
 
