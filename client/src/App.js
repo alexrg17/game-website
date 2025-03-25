@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 import Leaderboard from "./pages/Leaderboard";
 import GamePage from "./pages/GamePage";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
-import rockstar1 from "./assets/rockstar-1.png";
+import rockstar1 from "./assets/AllTogether1.png";
 
 // Define the HomePage using your existing Header and Body components
 function HomePage() {
