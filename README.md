@@ -1,4 +1,5 @@
 # game-website
+<<<<<<< HEAD
 Game Website Project
 This is the repository for a game website inspired by Rockstar’s GTA V website. The project aims to create an engaging and visually immersive website using modern web technologies.
 
@@ -19,3 +20,6 @@ Current Status
  How to Run the Project (Coming Soon)
 
 Instructions for setting up and running the project locally will be added once the project is initialized locally.
+=======
+Website for game using React, Express, and MongoDB
+>>>>>>> origin/backend-dev
