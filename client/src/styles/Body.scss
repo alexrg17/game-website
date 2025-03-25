@@ -1,0 +1,67 @@
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem; /* Space between blocks */
+  padding: 2rem;
+  background-color: #111; /* Dark theme background */
+}
+
+.body__block {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* Space between image and content */
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 5rem;
+}
+
+/* Left block: normal order (image then text) */
+.body__block--left {
+  flex-direction: row;
+}
+
+/* Right block: reverse the visual order so text appears on left and image on right */
+.body__block--right {
+  flex-direction: row-reverse;
+}
+
+.body__image-container {
+  flex: 1; /* Allow image to take equal space */
+  max-width: 50%; /* Limit image width */
+}
+
+.body__image {
+  width: 100%;
+  border-radius: 10px; /* Optional rounded corners */
+  object-fit: cover;
+}
+
+.body__content {
+  flex: 1; /* Allow text to take equal space */
+  color: #fff; /* White text for readability */
+  text-align: left;
+}
+
+.body__title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.body__text {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .body__block {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .body__image-container {
+    max-width: 100%;
+  }
+}
