@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
@@ -70,13 +69,6 @@ function App() {
         </Routes>
       </Router>
     </AuthProvider>
-=======
-function App() {
-  return (
-    <div>
-      <h1>Game Website - Setup Complete</h1>
-    </div>
->>>>>>> origin/backend-dev
   );
 }
 
