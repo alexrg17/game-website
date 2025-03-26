@@ -1,6 +1,13 @@
-<<<<<<< HEAD
+# Dependency folders
 node_modules/
-.DS_Store
-=======
+
+# Environment variables
 .env
->>>>>>> origin/backend-dev
+
+# System files
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
