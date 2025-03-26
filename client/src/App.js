@@ -15,7 +15,7 @@ import rockstar1 from "./assets/AllTogether1.png";
 function HomePage() {
   const blocks = [
     {
-      title: "Block 1: Welcome to Los Santos",
+      title: "Block 1: Welcome to Starilum game.",
       text: "Discover the vibrant and gritty world of Los Santos. Experience the thrill from the very first block.",
       imageSrc: rockstar1,
       imageAlignment: "left",
