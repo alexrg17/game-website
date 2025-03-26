@@ -9,6 +9,7 @@ import Leaderboard from "./pages/Leaderboard";
 import GamePage from "./pages/GamePage";
 import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
 import rockstar1 from "./assets/AllTogether1.png";
+import { Analytics } from "@vercel/analytics/react";
 
 // Define the HomePage using your existing Header and Body components
 function HomePage() {
