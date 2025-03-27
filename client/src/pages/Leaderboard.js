@@ -16,7 +16,7 @@ function Leaderboard() {
       setLoading(true);
       setError("");
       const response = await axios.get(
-        "http://localhost:5001/api/playerScore/leaderboard"
+        `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard`
       );
       setLeaderboard(response.data);
     } catch (err) {

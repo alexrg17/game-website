@@ -41,7 +41,7 @@ const Register = () => {
     try {
       console.log("Submitting registration:", formData);
       const response = await axios.post(
-        "http://localhost:5001/api/auth/register",
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
         formData
       );
       console.log("Registration successful:", response.data);
