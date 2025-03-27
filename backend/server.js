@@ -10,16 +10,19 @@ dotenv.config(); // Load environment variables from .env file
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+// Middleware (CORS first for all routes)
+app.use(
+  cors({
+    origin: "*", // Temporarily allow all origins for debugging
+    credentials: true,
+  })
+);
+console.log("CORS middleware applied");
+
 // Connect to the database
 connectDB();
 
 // Middleware
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://game-website.vercel.app"],
-    credentials: true,
-  })
-);
 app.use(express.json()); // Parse incoming JSON requests
 
 // Routes
