@@ -13,7 +13,11 @@ const PORT = process.env.PORT || 5001;
 // Middleware (CORS first for all routes)
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://game-backend-bqbd.onrender.com"],
+    origin: [
+      "http://localhost:3000",
+      "https://www.starilumgames.com",
+      "https://starilumgames.com",
+    ],
     credentials: true,
   })
 );
