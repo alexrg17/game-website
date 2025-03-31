@@ -8,7 +8,8 @@ const playerScoreRoutes = require("./routes/playerProgressRoutes"); // Player sc
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+// Use the port provided by Render in the environment variable
+const PORT = process.env.PORT;
 
 // Middleware (CORS first for all routes)
 app.use(
