@@ -15,12 +15,20 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://www.starilumgames.com",
   "https://starilumgames.com",
+  /\.vercel\.app$/,
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (
+        !origin ||
+        allowedOrigins.some((allowed) =>
+          allowed instanceof RegExp
+            ? allowed.test(new URL(origin).hostname)
+            : allowed === origin
+        )
+      ) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
