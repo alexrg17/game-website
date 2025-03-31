@@ -9,7 +9,7 @@ dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 // Use the port provided by Render in the environment variable
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5001;
 
 const allowedOrigins = [
   "http://localhost:3000",
