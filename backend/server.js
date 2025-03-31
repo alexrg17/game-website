@@ -11,14 +11,21 @@ const app = express();
 // Use the port provided by Render in the environment variable
 const PORT = process.env.PORT;
 
-// Middleware (CORS first for all routes)
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://www.starilumgames.com",
+  "https://starilumgames.com",
+];
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://www.starilumgames.com",
-      "https://starilumgames.com",
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
