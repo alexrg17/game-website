@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5001;
 // Middleware (CORS first for all routes)
 app.use(
   cors({
-    origin: "*", // Temporarily allow all origins for debugging
+    origin: ["http://localhost:3000", "https://game-backend-bqbd.onrender.com"],
     credentials: true,
   })
 );
