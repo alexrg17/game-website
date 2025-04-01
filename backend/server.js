@@ -21,17 +21,25 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
+      // For development/testing, allow requests with no origin
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      // Check if the origin matches any allowed origins
       if (
-        !origin ||
-        allowedOrigins.some((allowed) =>
-          allowed instanceof RegExp
-            ? allowed.test(new URL(origin).hostname)
-            : allowed === origin
-        )
+        allowedOrigins.some((allowed) => {
+          // Check if allowed is a RegExp
+          if (allowed instanceof RegExp) {
+            return allowed.test(origin);
+          }
+          // Otherwise do a direct comparison
+          return allowed === origin;
+        })
       ) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(new Error(`Origin ${origin} not allowed by CORS`));
       }
     },
     credentials: true,
