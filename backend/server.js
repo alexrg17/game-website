@@ -8,29 +8,31 @@ const playerScoreRoutes = require("./routes/playerProgressRoutes"); // Player sc
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-// Use the port provided by Render or Railway in the environment variable
 const PORT = process.env.PORT || 5001;
 
-// Add debugging middleware to log all incoming requests
+// Debug middleware to log incoming requests
 app.use((req, res, next) => {
   console.log(`Request received: ${req.method} ${req.url}`);
   console.log(`Origin: ${req.headers.origin}`);
-  console.log(`Headers:`, req.headers);
   next();
 });
 
-// Allow all origins
+// Updated CORS configuration with allowed origins
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "https://game-website-340o836yg-alexs-projects-eb26cfd9.vercel.app",
+      "https://starilumgames.com",
+      "http://localhost:3000",
+    ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
-console.log("CORS middleware applied with origin: '*'");
+console.log("CORS middleware applied with allowed origins");
 
-// Add error handling middleware
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error("Error occurred:", err);
   res.status(500).json({ error: err.message });
@@ -39,12 +41,12 @@ app.use((err, req, res, next) => {
 // Connect to the database
 connectDB();
 
-// Middleware
-app.use(express.json()); // Parse incoming JSON requests
+// Middleware for parsing JSON requests
+app.use(express.json());
 
 // Routes
-app.use("/api/auth", authRoutes); // Use auth routes under /api/auth
-app.use("/api/playerScore", playerScoreRoutes); // Use player score routes under /api/playerScore
+app.use("/api/auth", authRoutes);
+app.use("/api/playerScore", playerScoreRoutes);
 
 // Start the server
 app.listen(PORT, () => {
