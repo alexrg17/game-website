@@ -20,11 +20,7 @@ app.use((req, res, next) => {
 // Updated CORS configuration with allowed origins
 app.use(
   cors({
-    origin: [
-      "https://game-website-340o836yg-alexs-projects-eb26cfd9.vercel.app",
-      "https://starilumgames.com",
-      "http://localhost:3000",
-    ],
+    origin: "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
