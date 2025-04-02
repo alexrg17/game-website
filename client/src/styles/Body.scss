@@ -32,9 +32,16 @@
 }
 
 .body__image {
-  width: 100%;
   border-radius: 10px; /* Optional rounded corners */
-  object-fit: cover;
+  object-fit: contain; /* Changed from 'cover' to 'contain' */
+}
+
+.body__image--left {
+  max-height: 450px; /* Default height for left images */
+}
+
+.body__image--right {
+  max-height: 300px; /* Smaller height for right images */
 }
 
 .body__content {
@@ -64,4 +71,15 @@
   .body__image-container {
     max-width: 100%;
   }
+}
+
+/* Image container alignment adjustments */
+.body__block--left .body__image-container {
+  display: flex;
+  justify-content: flex-start; /* Align image to the left of its container */
+}
+
+.body__block--right .body__image-container {
+  display: flex;
+  justify-content: flex-end; /* Align image to the right of its container */
 }

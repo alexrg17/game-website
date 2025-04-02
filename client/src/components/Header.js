@@ -67,15 +67,18 @@ function Header() {
               Leaderboard
             </button>
           </li>
+          {/* Help button temporarily disabled
           <li>
             <button type="button" className="header__nav-button">
               Help
             </button>
           </li>
+          */}
         </ul>
       </nav>
 
       <div className="header__icons">
+        {/* Search button temporarily disabled
         <button
           type="button"
           aria-label="Search"
@@ -83,6 +86,7 @@ function Header() {
         >
           <FaSearch />
         </button>
+        */}
         {isAuthenticated ? (
           <div className="header__profile">
             <button
