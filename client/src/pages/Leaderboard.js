@@ -6,19 +6,24 @@ function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [selectedLevel, setSelectedLevel] = useState("overall"); // Add this state for level selection
 
   // A ref to store the interval ID so we can clear it on unmount
   const intervalRef = useRef(null);
 
   // Function to fetch the leaderboard data
-  const fetchLeaderboard = async () => {
+  const fetchLeaderboard = async (level) => {
     try {
       setLoading(true);
       setError("");
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard`
-      );
-      setLeaderboard(response.data);
+
+      const endpoint =
+        level === "overall"
+          ? `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard`
+          : `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard/${level}`;
+
+      const response = await axios.get(endpoint);
+      setLeaderboard(response.data.leaderboard || response.data);
     } catch (err) {
       console.error("Error fetching leaderboard:", err);
       setError("Failed to load leaderboard.");
@@ -27,13 +32,32 @@ function Leaderboard() {
     }
   };
 
-  useEffect(() => {
-    // Initial fetch when the component mounts
-    fetchLeaderboard();
+  // Add this handler for the dropdown
+  const handleLevelChange = (e) => {
+    setSelectedLevel(e.target.value);
+  };
 
-    // Set up an interval to fetch data every 30 seconds (adjust as needed)
+  // Get the appropriate score based on the selected level
+  const getScoreForLevel = (record) => {
+    switch (selectedLevel) {
+      case "cinematic":
+        return record.cinematicScore || 0;
+      case "electric":
+        return record.electricScore || 0;
+      case "rock":
+        return record.rockScore || 0;
+      default:
+        return record.highScore || 0;
+    }
+  };
+
+  useEffect(() => {
+    // Fetch when the component mounts or selected level changes
+    fetchLeaderboard(selectedLevel);
+
+    // Set up an interval to fetch data every 60 seconds
     intervalRef.current = setInterval(() => {
-      fetchLeaderboard();
+      fetchLeaderboard(selectedLevel);
     }, 60000);
 
     // Cleanup: clear the interval when the component unmounts
@@ -42,9 +66,8 @@ function Leaderboard() {
         clearInterval(intervalRef.current);
       }
     };
-  }, []);
+  }, [selectedLevel]); // Make sure to re-fetch when selectedLevel changes
 
-  // Render states
   if (loading) {
     return (
       <div className="leaderboard">
@@ -67,6 +90,23 @@ function Leaderboard() {
   return (
     <div className="leaderboard">
       <h2>Leaderboard</h2>
+
+      {/* Level selector dropdown */}
+      <div className="leaderboard__level-selector">
+        <label htmlFor="level-select">Select Level:</label>
+        <select
+          id="level-select"
+          value={selectedLevel}
+          onChange={handleLevelChange}
+          className="leaderboard__level-select"
+        >
+          <option value="overall">Overall</option>
+          <option value="cinematic">Cinematic</option>
+          <option value="electric">Electric</option>
+          <option value="rock">Rock</option>
+        </select>
+      </div>
+
       {leaderboard.length === 0 ? (
         <div className="leaderboard__empty">No scores available yet.</div>
       ) : (
@@ -77,7 +117,9 @@ function Leaderboard() {
               <span className="leaderboard__username">
                 {record.userId?.username || "Unknown"}
               </span>
-              <span className="leaderboard__score">{record.highScore}</span>
+              <span className="leaderboard__score">
+                {getScoreForLevel(record)}
+              </span>
             </li>
           ))}
         </ul>
