@@ -33,6 +33,23 @@ export const AuthProvider = ({ children }) => {
     setLoading(false); // Once finished checking, set loading to false
   }, []); // Empty dependency array means it only runs once on page load
 
+  // Add login function
+  const login = (token) => {
+    localStorage.setItem("token", token);
+    try {
+      const decoded = jwtDecode(token);
+      setUser({
+        email: decoded.email,
+        userId: decoded.userId,
+        username: decoded.username,
+      });
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error("Token decoding error during login:", error);
+      logout();
+    }
+  };
+
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
@@ -46,6 +63,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated,
         user,
         setUser,
+        login, // Add login function to context
         logout,
         loading,
       }}

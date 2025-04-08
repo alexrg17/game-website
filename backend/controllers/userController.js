@@ -31,7 +31,16 @@ const registerUser = async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).json({ message: "User registered successfully" });
+
+    // Generate a JWT token for the new user
+    const token = jwt.sign(
+      { userId: newUser._id, email: newUser.email, username: newUser.username },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // Return both the token and success message
+    res.status(201).json({ token, message: "User registered successfully" });
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ message: "Server error" });

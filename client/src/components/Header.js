@@ -53,6 +53,15 @@ function Header() {
             <button
               type="button"
               className="header__nav-button"
+              onClick={goToHome}
+            >
+              Home
+            </button>
+          </li>
+          <li>
+            <button
+              type="button"
+              className="header__nav-button"
               onClick={goToGame}
             >
               Game
@@ -97,12 +106,14 @@ function Header() {
             >
               <FaUserCircle />
             </button>
+            <span className="header__username">
+              {user ? user.username : "User"}
+            </span>
             {dropdownOpen && (
               <div
                 className="header__dropdown"
                 onClick={(e) => e.stopPropagation()}
               >
-                <p>{user ? user.username || user.email : "User"}</p>
                 <button onClick={handleLogout}>Logout</button>
               </div>
             )}

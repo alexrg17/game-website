@@ -70,7 +70,7 @@ router.post("/update", async (req, res) => {
 
 router.get("/leaderboard", async (req, res) => {
   try {
-    // Retrieve the top 5 players sorted by highScore descending and populate username from User
+    // Retrieve the top 50 players sorted by highScore descending and populate username from User
     const leaderboard = await PlayerScore.find()
       .sort({ highScore: -1 })
       .limit(50)

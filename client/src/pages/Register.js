@@ -6,7 +6,7 @@ import "../styles/Register.scss";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useContext(AuthContext); // Get auth state
+  const { isAuthenticated, login } = useContext(AuthContext); // Get auth state and login function
 
   // If the user is already authenticated, redirect to homepage
   useEffect(() => {
@@ -24,6 +24,7 @@ const Register = () => {
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +38,7 @@ const Register = () => {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setIsSubmitting(true);
 
     try {
       console.log("Submitting registration:", formData);
@@ -45,16 +47,33 @@ const Register = () => {
         formData
       );
       console.log("Registration successful:", response.data);
-      setSuccess(response.data.message || "User registered successfully!");
-      // Optionally, reset the form fields
-      setFormData({ name: "", username: "", email: "", password: "" });
-      // Redirect to the homepage (or login page) after a short delay (e.g., 1.5 seconds)
-      setTimeout(() => {
+
+      // Check if the response contains a token
+      if (response.data.token) {
+        // Use the login function from AuthContext to set the authentication state
+        login(response.data.token);
+
+        setSuccess("Registration successful! Redirecting to homepage...");
+
+        // Redirect to homepage immediately after setting auth state
         navigate("/");
-      }, 1500);
+      } else {
+        // If no token is returned yet, show success message and redirect to login
+        setSuccess(
+          response.data.message ||
+            "User registered successfully! Please log in."
+        );
+
+        // Redirect to login page after a short delay
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+      }
     } catch (err) {
       console.error("Registration error:", err.response || err);
       setError(err.response?.data?.message || "Server error");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -97,8 +116,12 @@ const Register = () => {
             onChange={handleInputChange}
             required
           />
-          <button type="submit" className="register-button">
-            Register
+          <button
+            type="submit"
+            className="register-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Registering..." : "Register"}
           </button>
         </form>
       </div>
