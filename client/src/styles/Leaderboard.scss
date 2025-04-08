@@ -87,4 +87,45 @@ body {
       }
     }
   }
+
+  &__level-selector {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 300px;
+    border: 1px solid #444;
+
+    label {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  &__level-select {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #07ff00;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    min-width: 150px;
+    text-align: center;
+
+    &:hover {
+      background-color: #3a3a3a;
+    }
+
+    option {
+      background-color: #2a2a2a;
+      padding: 5px;
+    }
+  }
 }

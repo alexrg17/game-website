@@ -5,37 +5,48 @@ const User = require("../models/User"); // Import the User model for lookup
 const router = express.Router();
 
 router.post("/update", async (req, res) => {
-  let { userId, score } = req.body;
+  let { userId, score, level } = req.body;
 
   console.log(
     "Received update request with userId:",
     userId,
-    "and score:",
-    score
+    "score:",
+    score,
+    "level:",
+    level
   );
 
-  if (score == null || !userId) {
+  if (score == null || !userId || !level) {
     return res
       .status(400)
-      .json({ message: "User ID (or username) and score are required" });
+      .json({ message: "User ID, score, and level are required" });
   }
 
-  // Use a separate variable for the valid user ID
+  // Normalize level string
+  level = level?.toLowerCase();
+  console.log("Normalized level:", level);
+
+  // Validate level
+  if (!["cinematic", "electric", "rock"].includes(level)) {
+    console.log("Invalid level detected:", level);
+    return res.status(400).json({
+      message: "Invalid level. Must be 'cinematic', 'electric', or 'rock'",
+    });
+  }
+
+  // User validation code
   let validUserId = userId;
 
-  // If userId is not a valid ObjectId, assume it's a username and look up the user
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     try {
-      console.log(
-        `Provided userId "${userId}" is not a valid ObjectId. Looking up by username...`
-      );
+      console.log(`Looking up username: "${userId}"`);
       const user = await User.findOne({ username: userId });
       if (!user) {
         return res
           .status(400)
           .json({ message: "Invalid user: no user found with that username" });
       }
-      validUserId = user._id; // Set validUserId to the user's _id
+      validUserId = user._id;
       console.log("Converted username to ObjectId:", validUserId);
     } catch (err) {
       console.error("Error finding user by username:", err);
@@ -44,27 +55,81 @@ router.post("/update", async (req, res) => {
   }
 
   try {
-    // Use validUserId in your query
+    console.log("Looking for existing record with userId:", validUserId);
     let record = await PlayerScore.findOne({ userId: validUserId });
+    let updated = false;
 
     if (record) {
-      // Update only if the new score is higher
+      console.log("Found existing record:", record);
+
+      // Update level-specific score if the new score is higher
+      if (level === "cinematic") {
+        console.log(
+          `Checking cinematic score: current=${record.cinematicScore}, new=${score}`
+        );
+        if (score > record.cinematicScore) {
+          record.cinematicScore = score;
+          updated = true;
+          console.log(`Updated cinematic score to ${score}`);
+        }
+      } else if (level === "electric") {
+        console.log(
+          `Checking electric score: current=${record.electricScore}, new=${score}`
+        );
+        if (score > record.electricScore) {
+          record.electricScore = score;
+          updated = true;
+          console.log(`Updated electric score to ${score}`);
+        }
+      } else if (level === "rock") {
+        console.log(
+          `Checking rock score: current=${record.rockScore}, new=${score}`
+        );
+        if (score > record.rockScore) {
+          record.rockScore = score;
+          updated = true;
+          console.log(`Updated rock score to ${score}`);
+        }
+      }
+
+      // Update overall highScore if needed
       if (score > record.highScore) {
         record.highScore = score;
+        updated = true;
+        console.log(`Updated overall high score to ${score}`);
+      }
+
+      if (updated) {
         await record.save();
-        console.log("Updated record:", record);
+        console.log("UPDATED RECORD:", record);
+        return res
+          .status(200)
+          .json({ message: "Score updated successfully", record });
+      } else {
+        console.log("No update needed, current scores are higher");
+        return res.status(200).json({ message: "No update needed", record });
       }
     } else {
-      // Create a new record if none exists
-      record = new PlayerScore({ userId: validUserId, highScore: score });
-      await record.save();
-      console.log("Created new record:", record);
-    }
+      console.log("No existing record found, creating new one");
 
-    res.status(200).json({ message: "Score updated successfully", record });
+      // Create new record with all fields explicitly set
+      const newRecord = new PlayerScore({
+        userId: validUserId,
+        highScore: score,
+        cinematicScore: level === "cinematic" ? score : 0,
+        electricScore: level === "electric" ? score : 0,
+        rockScore: level === "rock" ? score : 0,
+      });
+
+      await newRecord.save();
+      console.log("NEW RECORD CREATED:", newRecord);
+      return res
+        .status(201)
+        .json({ message: "New score record created", record: newRecord });
+    }
   } catch (error) {
     console.error("Error updating score:", error);
-    res.status(500).json({ message: "Server error" });
+    return res.status(500).json({ message: "Server error" });
   }
 });
 
@@ -79,6 +144,52 @@ router.get("/leaderboard", async (req, res) => {
   } catch (error) {
     console.error("Error fetching leaderboard:", error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+router.get("/leaderboard/:level?", async (req, res) => {
+  try {
+    const level = req.params.level ? req.params.level.toLowerCase() : "overall";
+
+    // Determine which field to sort by
+    let sortField;
+    switch (level) {
+      case "cinematic":
+        sortField = "cinematicScore";
+        break;
+      case "electric":
+        sortField = "electricScore";
+        break;
+      case "rock":
+        sortField = "rockScore";
+        break;
+      default:
+        sortField = "highScore"; // Default for 'overall'
+    }
+
+    console.log(
+      `Fetching leaderboard for level: ${level}, sorting by: ${sortField}`
+    );
+
+    // Build sort object
+    const sortObj = {};
+    sortObj[sortField] = -1; // Sort in descending order
+
+    // Fetch leaderboard data
+    const leaderboard = await PlayerScore.find({})
+      .sort(sortObj)
+      .limit(20)
+      .populate("userId", "username");
+
+    console.log(`Found ${leaderboard.length} leaderboard entries`);
+
+    return res.status(200).json({
+      level,
+      leaderboard,
+    });
+  } catch (error) {
+    console.error("Error fetching leaderboard:", error);
+    return res.status(500).json({ message: "Server error" });
   }
 });
 
