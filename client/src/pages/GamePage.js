@@ -1,32 +1,57 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../styles/GamePage.scss";
 import { AuthContext } from "../context/AuthContext";
 
 function GamePage() {
   // Destructure user from AuthContext
   const { user } = useContext(AuthContext);
+  const [gameLoading, setGameLoading] = useState(true);
+  const [gameError, setGameError] = useState(false);
 
   // Safely extract the username (or default to an empty string)
   const username = user?.username || "";
 
-  // Log the iframe source or the username whenever it changes
+  // Use window.location.origin for absolute path
+  const gamePath = `${window.location.origin}/BuildDb/index.html?userId=${username}`;
+
   useEffect(() => {
-    console.log(
-      "iframe src:",
-      `${process.env.PUBLIC_URL}/BuildDB/index.html?userId=${username}`
-    );
-  }, [username]);
+    console.log("Game iframe source:", gamePath);
+  }, [gamePath]);
+
+  const handleIframeLoad = () => {
+    setGameLoading(false);
+  };
+
+  const handleIframeError = () => {
+    setGameError(true);
+    setGameLoading(false);
+    console.error("Error loading game iframe");
+  };
 
   return (
     <div className="game-page">
       <div className="game-container">
         <h1 className="game-header">Play the Game</h1>
+
+        {gameLoading && <div className="game-loading">Loading game...</div>}
+
+        {gameError && (
+          <div className="game-error">
+            Failed to load the game. Please refresh the page or try again later.
+          </div>
+        )}
+
         <iframe
           title="WebGL Game"
-          src={`${process.env.PUBLIC_URL}/BuildDB/index.html?userId=${username}`}
+          src={gamePath}
           width="100%"
           height="700px"
-          style={{ border: "none" }}
+          style={{
+            border: "none",
+            display: gameLoading ? "none" : "block",
+          }}
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
         ></iframe>
       </div>
     </div>

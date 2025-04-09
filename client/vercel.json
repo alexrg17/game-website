@@ -1,8 +1,16 @@
 {
-  "rewrites": [
+  "version": 2,
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "/BuildDB/(.*)",
+      "dest": "/BuildDB/$1",
+      "headers": { "Cache-Control": "public, max-age=0, must-revalidate" }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "status": 200
     }
-  ]
+  ],
+  "builds": [{ "src": "package.json", "use": "@vercel/static-build" }]
 }
