@@ -18,6 +18,26 @@ function GamePage() {
     console.log("Game iframe source:", gamePath);
   }, [gamePath]);
 
+  useEffect(() => {
+    console.log(
+      `Checking file at: ${window.location.origin}/BuildDb/index.html`
+    );
+    fetch(`${window.location.origin}/BuildDb/index.html`)
+      .then((response) => {
+        console.log("Game file status:", response.status);
+        if (response.status === 200) {
+          console.log("Game file found successfully!");
+        } else {
+          console.error(`Game file returned status: ${response.status}`);
+          setGameError(true);
+        }
+      })
+      .catch((err) => {
+        console.error("Error checking game file:", err);
+        setGameError(true);
+      });
+  }, []);
+
   const handleIframeLoad = () => {
     setGameLoading(false);
   };

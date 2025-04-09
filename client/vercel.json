@@ -2,8 +2,8 @@
   "version": 2,
   "routes": [
     {
-      "src": "/BuildDB/(.*)",
-      "dest": "/BuildDB/$1",
+      "src": "/BuildDb/(.*)",
+      "dest": "/BuildDb/$1",
       "headers": { "Cache-Control": "public, max-age=0, must-revalidate" }
     },
     {
