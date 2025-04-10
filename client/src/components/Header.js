@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 import StarilumLogo from "../assets/starilum-logo.png"; // Updated import for Starilum logo
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
