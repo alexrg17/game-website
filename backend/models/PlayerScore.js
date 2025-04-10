@@ -8,12 +8,7 @@ const playerScoreSchema = new mongoose.Schema(
       required: true,
       unique: true, // One record per user
     },
-    // Keep original highScore for backward compatibility
-    highScore: {
-      type: Number,
-      default: 0,
-    },
-    // Add level-specific scores
+    // Level-specific scores
     cinematicScore: {
       type: Number,
       default: 0,
