@@ -92,13 +92,6 @@ router.post("/update", async (req, res) => {
         }
       }
 
-      // Update overall highScore if needed
-      if (score > record.highScore) {
-        record.highScore = score;
-        updated = true;
-        console.log(`Updated overall high score to ${score}`);
-      }
-
       if (updated) {
         await record.save();
         console.log("UPDATED RECORD:", record);
@@ -112,10 +105,9 @@ router.post("/update", async (req, res) => {
     } else {
       console.log("No existing record found, creating new one");
 
-      // Create new record with all fields explicitly set
+      // Create new record with only level-specific scores
       const newRecord = new PlayerScore({
         userId: validUserId,
-        highScore: score,
         cinematicScore: level === "cinematic" ? score : 0,
         electricScore: level === "electric" ? score : 0,
         rockScore: level === "rock" ? score : 0,
@@ -133,23 +125,23 @@ router.post("/update", async (req, res) => {
   }
 });
 
+// Replace the standard leaderboard route to always require a level
 router.get("/leaderboard", async (req, res) => {
-  try {
-    // Retrieve the top 50 players sorted by highScore descending and populate username from User
-    const leaderboard = await PlayerScore.find()
-      .sort({ highScore: -1 })
-      .limit(50)
-      .populate("userId", "username");
-    res.status(200).json(leaderboard);
-  } catch (error) {
-    console.error("Error fetching leaderboard:", error);
-    res.status(500).json({ message: "Server error" });
-  }
+  // Redirect to the default cinematic level leaderboard
+  console.log("Redirecting to default cinematic leaderboard");
+  return res.redirect("/api/playerScore/leaderboard/cinematic");
 });
 
-router.get("/leaderboard/:level?", async (req, res) => {
+router.get("/leaderboard/:level", async (req, res) => {
   try {
-    const level = req.params.level ? req.params.level.toLowerCase() : "overall";
+    const level = req.params.level.toLowerCase();
+
+    // Validate level parameter
+    if (!["cinematic", "electric", "rock"].includes(level)) {
+      return res.status(400).json({
+        message: "Invalid level. Must be 'cinematic', 'electric', or 'rock'",
+      });
+    }
 
     // Determine which field to sort by
     let sortField;
@@ -163,8 +155,6 @@ router.get("/leaderboard/:level?", async (req, res) => {
       case "rock":
         sortField = "rockScore";
         break;
-      default:
-        sortField = "highScore"; // Default for 'overall'
     }
 
     console.log(

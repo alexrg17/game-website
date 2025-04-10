@@ -6,7 +6,7 @@ function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedLevel, setSelectedLevel] = useState("overall"); // Add this state for level selection
+  const [selectedLevel, setSelectedLevel] = useState("cinematic"); // Default to cinematic
 
   // A ref to store the interval ID so we can clear it on unmount
   const intervalRef = useRef(null);
@@ -17,10 +17,7 @@ function Leaderboard() {
       setLoading(true);
       setError("");
 
-      const endpoint =
-        level === "overall"
-          ? `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard`
-          : `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard/${level}`;
+      const endpoint = `${process.env.REACT_APP_API_URL}/api/playerScore/leaderboard/${level}`;
 
       const response = await axios.get(endpoint);
       setLeaderboard(response.data.leaderboard || response.data);
@@ -47,7 +44,7 @@ function Leaderboard() {
       case "rock":
         return record.rockScore || 0;
       default:
-        return record.highScore || 0;
+        return record.cinematicScore || 0; // Default to cinematic if something goes wrong
     }
   };
 
@@ -100,7 +97,6 @@ function Leaderboard() {
           onChange={handleLevelChange}
           className="leaderboard__level-select"
         >
-          <option value="overall">Overall</option>
           <option value="cinematic">Cinematic</option>
           <option value="electric">Electric</option>
           <option value="rock">Rock</option>
