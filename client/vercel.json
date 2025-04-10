@@ -1,16 +1,18 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/BuildDb/(.*)",
-      "dest": "/BuildDb/$1",
-      "headers": { "Cache-Control": "public, max-age=0, must-revalidate" }
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html",
-      "status": 200
-    }
+  "rewrites": [
+    { "source": "/BuildDb/(.*)", "destination": "/BuildDb/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ],
-  "builds": [{ "src": "package.json", "use": "@vercel/static-build" }]
+  "headers": [
+    {
+      "source": "/BuildDb/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
 }
