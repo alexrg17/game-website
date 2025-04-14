@@ -85,6 +85,54 @@ body {
         font-weight: bold;
         color: $accent-color;
       }
+
+      .leaderboard__position {
+        width: 30px;
+        text-align: left;
+      }
+
+      .leaderboard__username {
+        flex: 1;
+      }
+
+      .leaderboard__score {
+        width: 80px;
+        text-align: right;
+        padding-right: 10px;
+      }
+    }
+  }
+
+  &__headers {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    color: $accent-color;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  &__header-item {
+    &.leaderboard__position-header {
+      width: 30px;
+    }
+
+    &.leaderboard__username-header {
+      flex: 1;
+    }
+
+    &.leaderboard__score-header {
+      width: 80px;
+      text-align: right;
+      padding-right: 10px;
+    }
+
+    &.leaderboard__rank-header {
+      width: 80px;
+      text-align: center;
     }
   }
 
@@ -126,6 +174,91 @@ body {
     option {
       background-color: #2a2a2a;
       padding: 5px;
+    }
+  }
+
+  &__rank {
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  .rank-gold {
+    background-color: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    border: 1px solid #ffd700;
+  }
+
+  .rank-silver {
+    background-color: rgba(192, 192, 192, 0.2);
+    color: #c0c0c0;
+    border: 1px solid #c0c0c0;
+  }
+
+  .rank-bronze {
+    background-color: rgba(205, 127, 50, 0.2);
+    color: #cd7f32;
+    border: 1px solid #cd7f32;
+  }
+
+  .rank-off-beat {
+    background-color: rgba(169, 169, 169, 0.2);
+    color: #a9a9a9;
+    border: 1px solid #a9a9a9;
+  }
+}
+
+@media (max-width: 600px) {
+  .leaderboard {
+    &__item {
+      flex-wrap: wrap;
+      padding: 8px;
+    }
+
+    &__position {
+      width: 10%;
+    }
+
+    &__username {
+      width: 40%;
+    }
+
+    &__score {
+      width: 20%;
+    }
+
+    &__rank {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 5px;
+    }
+
+    &__headers {
+      padding: 8px;
+    }
+
+    &__header-item {
+      &.leaderboard__position-header {
+        width: 10%;
+      }
+
+      &.leaderboard__username-header {
+        width: 40%;
+      }
+
+      &.leaderboard__score-header {
+        width: 20%;
+        text-align: right;
+      }
+
+      &.leaderboard__rank-header {
+        width: 20%;
+        text-align: right;
+      }
     }
   }
 }

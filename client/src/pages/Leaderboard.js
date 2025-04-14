@@ -48,6 +48,48 @@ function Leaderboard() {
     }
   };
 
+  // Add this helper function after getScoreForLevel
+  const getRankForScore = (level, score) => {
+    switch (level) {
+      case "cinematic":
+        if (score >= 250) return "Gold";
+        if (score >= 150) return "Silver";
+        if (score >= 50) return "Bronze";
+        return "Off Beat";
+
+      case "electric":
+        if (score >= 260) return "Gold";
+        if (score >= 150) return "Silver";
+        if (score >= 50) return "Bronze";
+        return "Off Beat";
+
+      case "rock":
+        if (score >= 300) return "Gold";
+        if (score >= 250) return "Silver";
+        if (score >= 100) return "Bronze";
+        return "Off Beat";
+
+      default:
+        return "Unranked";
+    }
+  };
+
+  // Add a helper function to get rank CSS class
+  const getRankClass = (rank) => {
+    switch (rank) {
+      case "Gold":
+        return "rank-gold";
+      case "Silver":
+        return "rank-silver";
+      case "Bronze":
+        return "rank-bronze";
+      case "Off Beat":
+        return "rank-off-beat";
+      default:
+        return "rank-unranked";
+    }
+  };
+
   useEffect(() => {
     // Fetch when the component mounts or selected level changes
     fetchLeaderboard(selectedLevel);
@@ -103,21 +145,42 @@ function Leaderboard() {
         </select>
       </div>
 
+      {/* Column Headers */}
+      <div className="leaderboard__headers">
+        <span className="leaderboard__header-item leaderboard__position-header">
+          #
+        </span>
+        <span className="leaderboard__header-item leaderboard__username-header">
+          Player
+        </span>
+        <span className="leaderboard__header-item leaderboard__score-header">
+          Score
+        </span>
+        <span className="leaderboard__header-item leaderboard__rank-header">
+          Rank
+        </span>
+      </div>
+
       {leaderboard.length === 0 ? (
         <div className="leaderboard__empty">No scores available yet.</div>
       ) : (
         <ul className="leaderboard__list">
-          {leaderboard.map((record, index) => (
-            <li key={record._id} className="leaderboard__item">
-              <span className="leaderboard__rank">{index + 1}.</span>
-              <span className="leaderboard__username">
-                {record.userId?.username || "Unknown"}
-              </span>
-              <span className="leaderboard__score">
-                {getScoreForLevel(record)}
-              </span>
-            </li>
-          ))}
+          {leaderboard.map((record, index) => {
+            const score = getScoreForLevel(record);
+            const rank = getRankForScore(selectedLevel, score);
+            return (
+              <li key={record._id} className="leaderboard__item">
+                <span className="leaderboard__position">{index + 1}.</span>
+                <span className="leaderboard__username">
+                  {record.userId?.username || "Unknown"}
+                </span>
+                <span className="leaderboard__score">{score}</span>
+                <span className={`leaderboard__rank ${getRankClass(rank)}`}>
+                  {rank}
+                </span>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>
