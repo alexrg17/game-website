@@ -90,6 +90,34 @@ function Leaderboard() {
     }
   };
 
+  // Add a function to format time (milliseconds) to MM:SS.ms
+  const formatTime = (milliseconds) => {
+    if (milliseconds === null || milliseconds === undefined) return "--:--";
+
+    const totalSeconds = milliseconds / 1000;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
+    const ms = Math.floor((milliseconds % 1000) / 10);
+
+    return `${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}.${ms.toString().padStart(2, "0")}`;
+  };
+
+  // Add a function to get time for the current level
+  const getTimeForLevel = (record) => {
+    switch (selectedLevel) {
+      case "cinematic":
+        return record.cinematicTime;
+      case "electric":
+        return record.electricTime;
+      case "rock":
+        return record.rockTime;
+      default:
+        return record.cinematicTime;
+    }
+  };
+
   useEffect(() => {
     // Fetch when the component mounts or selected level changes
     fetchLeaderboard(selectedLevel);
@@ -156,6 +184,9 @@ function Leaderboard() {
         <span className="leaderboard__header-item leaderboard__score-header">
           Score
         </span>
+        <span className="leaderboard__header-item leaderboard__time-header">
+          Time
+        </span>
         <span className="leaderboard__header-item leaderboard__rank-header">
           Rank
         </span>
@@ -167,6 +198,7 @@ function Leaderboard() {
         <ul className="leaderboard__list">
           {leaderboard.map((record, index) => {
             const score = getScoreForLevel(record);
+            const time = getTimeForLevel(record);
             const rank = getRankForScore(selectedLevel, score);
             return (
               <li key={record._id} className="leaderboard__item">
@@ -175,6 +207,7 @@ function Leaderboard() {
                   {record.userId?.username || "Unknown"}
                 </span>
                 <span className="leaderboard__score">{score}</span>
+                <span className="leaderboard__time">{formatTime(time)}</span>
                 <span className={`leaderboard__rank ${getRankClass(rank)}`}>
                   {rank}
                 </span>

@@ -21,6 +21,19 @@ const playerScoreSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    // New time fields (storing milliseconds)
+    cinematicTime: {
+      type: Number,
+      default: null,
+    },
+    electricTime: {
+      type: Number,
+      default: null,
+    },
+    rockTime: {
+      type: Number,
+      default: null,
+    },
   },
   { timestamps: true }
 );

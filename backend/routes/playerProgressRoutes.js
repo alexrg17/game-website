@@ -5,7 +5,7 @@ const User = require("../models/User"); // Import the User model for lookup
 const router = express.Router();
 
 router.post("/update", async (req, res) => {
-  let { userId, score, level } = req.body;
+  let { userId, score, level, time } = req.body; // Add time parameter
 
   console.log(
     "Received update request with userId:",
@@ -13,7 +13,9 @@ router.post("/update", async (req, res) => {
     "score:",
     score,
     "level:",
-    level
+    level,
+    "time:",
+    time
   );
 
   if (score == null || !userId || !level) {
@@ -72,6 +74,18 @@ router.post("/update", async (req, res) => {
           updated = true;
           console.log(`Updated cinematic score to ${score}`);
         }
+
+        // Handle time update (only if provided and better than current)
+        if (time != null) {
+          console.log(
+            `Checking cinematic time: current=${record.cinematicTime}, new=${time}`
+          );
+          if (record.cinematicTime === null || time < record.cinematicTime) {
+            record.cinematicTime = time;
+            updated = true;
+            console.log(`Updated cinematic time to ${time}`);
+          }
+        }
       } else if (level === "electric") {
         console.log(
           `Checking electric score: current=${record.electricScore}, new=${score}`
@@ -80,6 +94,18 @@ router.post("/update", async (req, res) => {
           record.electricScore = score;
           updated = true;
           console.log(`Updated electric score to ${score}`);
+        }
+
+        // Handle time update (only if provided and better than current)
+        if (time != null) {
+          console.log(
+            `Checking electric time: current=${record.electricTime}, new=${time}`
+          );
+          if (record.electricTime === null || time < record.electricTime) {
+            record.electricTime = time;
+            updated = true;
+            console.log(`Updated electric time to ${time}`);
+          }
         }
       } else if (level === "rock") {
         console.log(
@@ -90,6 +116,18 @@ router.post("/update", async (req, res) => {
           updated = true;
           console.log(`Updated rock score to ${score}`);
         }
+
+        // Handle time update (only if provided and better than current)
+        if (time != null) {
+          console.log(
+            `Checking rock time: current=${record.rockTime}, new=${time}`
+          );
+          if (record.rockTime === null || time < record.rockTime) {
+            record.rockTime = time;
+            updated = true;
+            console.log(`Updated rock time to ${time}`);
+          }
+        }
       }
 
       if (updated) {
@@ -99,18 +137,21 @@ router.post("/update", async (req, res) => {
           .status(200)
           .json({ message: "Score updated successfully", record });
       } else {
-        console.log("No update needed, current scores are higher");
+        console.log("No update needed, current scores/times are better");
         return res.status(200).json({ message: "No update needed", record });
       }
     } else {
       console.log("No existing record found, creating new one");
 
-      // Create new record with only level-specific scores
+      // Create new record with level-specific scores and times
       const newRecord = new PlayerScore({
         userId: validUserId,
         cinematicScore: level === "cinematic" ? score : 0,
         electricScore: level === "electric" ? score : 0,
         rockScore: level === "rock" ? score : 0,
+        cinematicTime: level === "cinematic" && time != null ? time : null,
+        electricTime: level === "electric" && time != null ? time : null,
+        rockTime: level === "rock" && time != null ? time : null,
       });
 
       await newRecord.save();
