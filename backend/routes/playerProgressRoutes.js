@@ -105,8 +105,12 @@ router.post("/update", async (req, res) => {
           console.log(
             `Checking electric time: current=${record.electricTime}, new=${time}`
           );
-          if (record.electricTime === null || time < record.electricTime) {
-            record.electricTime = time;
+          if (
+            record.electricTime === null ||
+            Number(time) < record.electricTime
+          ) {
+            // Add Number()
+            record.electricTime = Number(time); // Add Number()
             updated = true;
             console.log(`Updated electric time to ${time}`);
           }
@@ -126,8 +130,9 @@ router.post("/update", async (req, res) => {
           console.log(
             `Checking rock time: current=${record.rockTime}, new=${time}`
           );
-          if (record.rockTime === null || time < record.rockTime) {
-            record.rockTime = time;
+          if (record.rockTime === null || Number(time) < record.rockTime) {
+            // Add Number()
+            record.rockTime = Number(time); // Add Number()
             updated = true;
             console.log(`Updated rock time to ${time}`);
           }
@@ -160,7 +165,23 @@ router.post("/update", async (req, res) => {
         rockTime: level === "rock" && time != null ? Number(time) : null, // Add Number()
       });
 
+      console.log("Time value type:", typeof time);
+      console.log("Time after Number conversion:", Number(time));
+      console.log("Record before save:", {
+        cinematicTime: level === "cinematic" ? Number(time) : null,
+        electricTime: level === "electric" ? Number(time) : null,
+        rockTime: level === "rock" ? Number(time) : null,
+      });
+
       await newRecord.save();
+
+      console.log("Saved record with fields:", Object.keys(newRecord._doc));
+      console.log("Time values in saved record:", {
+        cinematicTime: newRecord.cinematicTime,
+        electricTime: newRecord.electricTime,
+        rockTime: newRecord.rockTime,
+      });
+
       console.log("NEW RECORD CREATED:", newRecord);
       return res
         .status(201)
