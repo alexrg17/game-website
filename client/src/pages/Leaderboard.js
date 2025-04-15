@@ -200,14 +200,19 @@ function Leaderboard() {
             const score = getScoreForLevel(record);
             const time = getTimeForLevel(record);
             const rank = getRankForScore(selectedLevel, score);
+            
             return (
               <li key={record._id} className="leaderboard__item">
                 <span className="leaderboard__position">{index + 1}.</span>
                 <span className="leaderboard__username">
                   {record.userId?.username || "Unknown"}
                 </span>
-                <span className="leaderboard__score">{score}</span>
-                <span className="leaderboard__time">{formatTime(time)}</span>
+                <span className="leaderboard__score">
+                  {score}
+                </span>
+                <span className="leaderboard__time">
+                  {formatTime(time)}
+                </span>
                 <span className={`leaderboard__rank ${getRankClass(rank)}`}>
                   {rank}
                 </span>

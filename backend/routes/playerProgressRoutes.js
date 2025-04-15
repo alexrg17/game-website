@@ -80,8 +80,12 @@ router.post("/update", async (req, res) => {
           console.log(
             `Checking cinematic time: current=${record.cinematicTime}, new=${time}`
           );
-          if (record.cinematicTime === null || time < record.cinematicTime) {
-            record.cinematicTime = time;
+          if (
+            record.cinematicTime === null ||
+            Number(time) < record.cinematicTime
+          ) {
+            // Add Number()
+            record.cinematicTime = Number(time); // Add Number()
             updated = true;
             console.log(`Updated cinematic time to ${time}`);
           }
@@ -149,9 +153,11 @@ router.post("/update", async (req, res) => {
         cinematicScore: level === "cinematic" ? score : 0,
         electricScore: level === "electric" ? score : 0,
         rockScore: level === "rock" ? score : 0,
-        cinematicTime: level === "cinematic" && time != null ? time : null,
-        electricTime: level === "electric" && time != null ? time : null,
-        rockTime: level === "rock" && time != null ? time : null,
+        cinematicTime:
+          level === "cinematic" && time != null ? Number(time) : null, // Add Number()
+        electricTime:
+          level === "electric" && time != null ? Number(time) : null, // Add Number()
+        rockTime: level === "rock" && time != null ? Number(time) : null, // Add Number()
       });
 
       await newRecord.save();
@@ -198,21 +204,15 @@ router.get("/leaderboard/:level", async (req, res) => {
         break;
     }
 
-    console.log(
-      `Fetching leaderboard for level: ${level}, sorting by: ${sortField}`
-    );
-
     // Build sort object
     const sortObj = {};
     sortObj[sortField] = -1; // Sort in descending order
 
-    // Fetch leaderboard data
+    // Fetch leaderboard data (make sure to select time fields)
     const leaderboard = await PlayerScore.find({})
       .sort(sortObj)
       .limit(20)
       .populate("userId", "username");
-
-    console.log(`Found ${leaderboard.length} leaderboard entries`);
 
     return res.status(200).json({
       level,
