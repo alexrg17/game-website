@@ -7,6 +7,13 @@ const router = express.Router();
 router.post("/update", async (req, res) => {
   let { userId, score, level, time } = req.body; // Add time parameter
 
+  // Add this code to convert seconds to milliseconds
+  if (time != null) {
+    // Convert from seconds (63.34) to milliseconds (63346)
+    time = Math.round(Number(time) * 1000);
+    console.log(`Converted time from seconds to milliseconds: ${time}`);
+  }
+
   console.log(
     "Received update request with userId:",
     userId,
