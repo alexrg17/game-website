@@ -78,72 +78,38 @@ router.post("/update", async (req, res) => {
         );
         if (score > record.cinematicScore) {
           record.cinematicScore = score;
+          // Always update time when we update the score
+          record.cinematicTime = Number(time);
           updated = true;
-          console.log(`Updated cinematic score to ${score}`);
-        }
-
-        // Handle time update (only if provided and better than current)
-        if (time != null) {
           console.log(
-            `Checking cinematic time: current=${record.cinematicTime}, new=${time}`
+            `Updated cinematic score to ${score} and time to ${time}`
           );
-          if (
-            record.cinematicTime === null ||
-            Number(time) < record.cinematicTime
-          ) {
-            // Add Number()
-            record.cinematicTime = Number(time); // Add Number()
-            updated = true;
-            console.log(`Updated cinematic time to ${time}`);
-          }
         }
+        // Remove the separate time update block
       } else if (level === "electric") {
         console.log(
           `Checking electric score: current=${record.electricScore}, new=${score}`
         );
         if (score > record.electricScore) {
           record.electricScore = score;
+          // Always update time when we update the score
+          record.electricTime = Number(time);
           updated = true;
-          console.log(`Updated electric score to ${score}`);
+          console.log(`Updated electric score to ${score} and time to ${time}`);
         }
-
-        // Handle time update (only if provided and better than current)
-        if (time != null) {
-          console.log(
-            `Checking electric time: current=${record.electricTime}, new=${time}`
-          );
-          if (
-            record.electricTime === null ||
-            Number(time) < record.electricTime
-          ) {
-            // Add Number()
-            record.electricTime = Number(time); // Add Number()
-            updated = true;
-            console.log(`Updated electric time to ${time}`);
-          }
-        }
+        // Remove the separate time update block
       } else if (level === "rock") {
         console.log(
           `Checking rock score: current=${record.rockScore}, new=${score}`
         );
         if (score > record.rockScore) {
           record.rockScore = score;
+          // Always update time when we update the score
+          record.rockTime = Number(time);
           updated = true;
-          console.log(`Updated rock score to ${score}`);
+          console.log(`Updated rock score to ${score} and time to ${time}`);
         }
-
-        // Handle time update (only if provided and better than current)
-        if (time != null) {
-          console.log(
-            `Checking rock time: current=${record.rockTime}, new=${time}`
-          );
-          if (record.rockTime === null || Number(time) < record.rockTime) {
-            // Add Number()
-            record.rockTime = Number(time); // Add Number()
-            updated = true;
-            console.log(`Updated rock time to ${time}`);
-          }
-        }
+        // Remove the separate time update block
       }
 
       if (updated) {
