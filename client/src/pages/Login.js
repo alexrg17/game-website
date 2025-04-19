@@ -103,7 +103,11 @@ const Login = () => {
               />
               Remember Me
             </label>
-            <button type="button" className="forgot-password">
+            <button
+              type="button"
+              className="forgot-password"
+              onClick={() => navigate("/forgot-password")}
+            >
               Forgot Password?
             </button>
           </div>

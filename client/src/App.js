@@ -13,6 +13,8 @@ import bob from "./assets/Bob.png";
 import lyra from "./assets/Lyra.png";
 import jett from "./assets/Jett.png";
 import { Analytics } from "@vercel/analytics/react";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 // Define the HomePage using your existing Header and Body components
 function HomePage() {
@@ -67,6 +69,8 @@ function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
         <Analytics />
       </Router>
