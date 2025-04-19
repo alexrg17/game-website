@@ -9,18 +9,50 @@ const ForgotPassword = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
+
+  // Email validation regex pattern
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const validateEmail = () => {
+    if (!email) {
+      setError("Please enter your email address.");
+      return false;
+    }
+
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email) {
-      setError("Please enter your email address.");
+
+    // Clear previous messages
+    setError("");
+    setSuccess("");
+
+    // Validate email format
+    if (!validateEmail()) {
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
+    setIsChecking(true);
 
     try {
+      // First check if the email exists in the database
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/api/auth/check-email`,
+        { email }
+      );
+
+      setIsChecking(false);
+
+      // If email exists, send the reset link
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/auth/forgot-password`,
         { email }
@@ -33,9 +65,18 @@ const ForgotPassword = () => {
       // Clear form
       setEmail("");
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to process your request");
+      if (err.response?.status === 404) {
+        setError(
+          "No account found with this email address. Please check your spelling or register for a new account."
+        );
+      } else {
+        setError(
+          err.response?.data?.message || "Failed to process your request"
+        );
+      }
     } finally {
       setIsSubmitting(false);
+      setIsChecking(false);
     }
   };
 
@@ -57,7 +98,10 @@ const ForgotPassword = () => {
               type="email"
               placeholder="Email Address"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError(""); // Clear error when user types
+              }}
               required
             />
           </div>
@@ -67,7 +111,11 @@ const ForgotPassword = () => {
             className="submit-button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Sending..." : "Send Reset Link"}
+            {isChecking
+              ? "Checking..."
+              : isSubmitting
+              ? "Sending..."
+              : "Send Reset Link"}
           </button>
         </form>
 

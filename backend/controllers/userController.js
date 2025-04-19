@@ -190,10 +190,35 @@ const resetPassword = async (req, res) => {
   }
 };
 
+// Add this new controller function with your existing controller functions
+
+const checkEmailExists = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "No user found with this email" });
+    }
+
+    // Don't return user details for security, just confirm existence
+    return res.status(200).json({ exists: true });
+  } catch (error) {
+    console.error("Check email error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
   forgotPassword,
   verifyResetToken,
   resetPassword,
+  checkEmailExists, // Add this export
 };

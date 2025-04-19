@@ -5,6 +5,7 @@ const {
   forgotPassword,
   verifyResetToken,
   resetPassword,
+  checkEmailExists, // Add this import
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -14,6 +15,9 @@ router.post("/register", registerUser);
 
 // POST route for user login
 router.post("/login", loginUser);
+
+// Email check route
+router.post("/check-email", checkEmailExists); // Add this new route
 
 // Password reset routes
 router.post("/forgot-password", forgotPassword);
