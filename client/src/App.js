@@ -21,27 +21,27 @@ function HomePage() {
   const blocks = [
     {
       title: "The Awakening Begins",
-      text: "Meet Bob, Lyra, and Jett — three unlikely allies in the city of Silton where music is forbidden. Together, they ignite the spark of rebellion and show the world what it's been missing.",
+      text: "Meet Bob, Lyra, and Jett — three unlikely allies in the city of Silton where music is forbidden. Together, they ignite the spark of rebellion and show the world what it's been missing. Join them on their journey to bring rhythm back to a world that has forgotten the power of music.",
       imageSrc: rockstar1,
       imageAlignment: "left",
     },
     {
       title: "Rediscovering Rhythm",
-      text: "A working man turned rebel, Bob’s accidental clash with a music bot reignites memories of melody. Hesitant but driven by instinct, he steps into a world he’d long forgotten.",
+      text: "A working man turned rebel, Bob's accidental clash with a music bot reignites memories of melody. Hesitant but driven by instinct, he steps into a world he'd long forgotten. His journey from ordinary citizen to revolutionary begins with a single beat that awakens something deep within him.",
       imageSrc: bob,
       imageAlignment: "right",
       imageStyle: { maxHeight: "650px", maxWidth: "750px" },
     },
     {
       title: "Sound of Resistance",
-      text: "Once a rising composer, now a wanted music outlaw. Lyra dodges security bots while distributing her illegal tracks, determined to bring music back to the people.",
+      text: "Once a rising composer, now a wanted music outlaw. Lyra dodges security bots while distributing her illegal tracks, determined to bring music back to the people. Her compositions are more than just songs—they're messages of hope and rebellion that inspire others to join the cause.",
       imageSrc: lyra,
       imageAlignment: "left",
       imageStyle: { maxHeight: "650px", maxWidth: "750px" },
     },
     {
       title: "Behind the Beat",
-      text: "Quiet but committed, Jett moves in the shadows to supply Lyra with everything she needs to fight back. Fueled by loss, his mission is to keep the underground alive.",
+      text: "Quiet but committed, Jett moves in the shadows to supply Lyra with everything she needs to fight back. Fueled by loss, his mission is to keep the underground alive. His technical genius and resourcefulness provide the rebellion with the tools they need to spread their message across Silton.",
       imageSrc: jett,
       imageAlignment: "right",
       imageStyle: { maxHeight: "650px", maxWidth: "750px" },
