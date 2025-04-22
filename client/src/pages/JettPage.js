@@ -14,7 +14,7 @@ const JettPage = () => {
   return (
     <div className="story-page">
       <div className="story-container">
-        <h1 className="story-title">Behind the Beat</h1>
+        <h1 className="story-title">Fighting for the Past</h1>
 
         <div className="story-hero">
           <img

@@ -14,7 +14,7 @@ const BobPage = () => {
   return (
     <div className="story-page">
       <div className="story-container">
-        <h1 className="story-title">Rediscovering Rhythm</h1>
+        <h1 className="story-title">Discovering Rhythm</h1>
 
         <div className="story-hero">
           <img
