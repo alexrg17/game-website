@@ -14,6 +14,10 @@ import jett from "./assets/Jett.png";
 import { Analytics } from "@vercel/analytics/react";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import AwakeningPage from "./pages/AwakeningPage";
+import BobPage from "./pages/BobPage";
+import LyraPage from "./pages/LyraPage";
+import JettPage from "./pages/JettPage";
 
 // Define the HomePage using your existing Header and Body components
 function HomePage() {
@@ -23,27 +27,31 @@ function HomePage() {
       text: "Meet Bob, Lyra, and Jett — three unlikely allies in the city of Silton where music is forbidden. Together, they ignite the spark of rebellion and show the world what it's been missing. Join them on their journey to bring rhythm back to a world that has forgotten the power of music.",
       imageSrc: rockstar1,
       imageAlignment: "left",
+      learnMoreLink: "/story/awakening",
     },
     {
-      title: "Discovering Rhythm",
-      text: "Bob is your ordinary working man. On his way to work he has a clash with a robot, who is blocking a path due to a known criminal on the run, leading Bob to go down a route he had never taken before. Down back alleyways, he uses his electrical know-how, and his new-found fighting ability, to get to work on time, not knowing that some one may be watchinging him...",
+      title: "Rediscovering Rhythm",
+      text: "A working man turned rebel, Bob's accidental clash with a music bot reignites memories of melody. Hesitant but driven by instinct, he steps into a world he'd long forgotten. His journey from ordinary citizen to revolutionary begins with a single beat that awakens something deep within him.",
       imageSrc: bob,
       imageAlignment: "right",
       imageStyle: { maxHeight: "650px", maxWidth: "750px" },
+      learnMoreLink: "/character/bob",
     },
     {
       title: "Sound of Resistance",
-      text: "A young and confident woman, Lyra's love for making music is strong, and she is determined to spread the joys of music to the world. She is a known by the city's police force, but Lyra can always use her quick wit and athletic ability to escape and live to compose another day.",
+      text: "Once a rising composer, now a wanted music outlaw. Lyra dodges security bots while distributing her illegal tracks, determined to bring music back to the people. Her compositions are more than just songs—they're messages of hope and rebellion that inspire others to join the cause.",
       imageSrc: lyra,
       imageAlignment: "left",
       imageStyle: { maxHeight: "650px", maxWidth: "750px" },
+      learnMoreLink: "/character/lyra",
     },
     {
       title: "Behind the Beat",
-      text: "Jett moves in the shadows to supply Lyra with everything she needs to spread music. Jett is the son of two once famous musicians who were taken by the state. Being force to live alone for his younger life taught him how to fight and fend for himself. On this particular day, he breaks into a warehouse to steal a disc for Lyra to burn her music onto, while Lyra distracts the city's police force.",
+      text: "Quiet but committed, Jett moves in the shadows to supply Lyra with everything she needs to fight back. Fueled by loss, his mission is to keep the underground alive. His technical genius and resourcefulness provide the rebellion with the tools they need to spread their message across Silton.",
       imageSrc: jett,
       imageAlignment: "right",
       imageStyle: { maxHeight: "650px", maxWidth: "750px" },
+      learnMoreLink: "/character/jett",
     },
   ];
 
@@ -69,6 +77,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+        {/* New story and character pages */}
+        <Route path="/story/awakening" element={<AwakeningPage />} />
+        <Route path="/character/bob" element={<BobPage />} />
+        <Route path="/character/lyra" element={<LyraPage />} />
+        <Route path="/character/jett" element={<JettPage />} />
       </Routes>
       <Footer />
       <Analytics />

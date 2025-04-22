@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Body.scss";
@@ -28,8 +30,20 @@ const useIntersectionObserver = (options = {}) => {
 };
 
 // Block with image on the left, text on the right
-export const BodyBlockLeft = ({ title, text, imageSrc, imageStyle, index }) => {
+export const BodyBlockLeft = ({
+  title,
+  text,
+  imageSrc,
+  imageStyle,
+  index,
+  learnMoreLink,
+}) => {
   const [blockRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+  const navigate = useNavigate();
+
+  const handleLearnMore = () => {
+    navigate(learnMoreLink);
+  };
 
   return (
     <div
@@ -50,7 +64,9 @@ export const BodyBlockLeft = ({ title, text, imageSrc, imageStyle, index }) => {
       <div className="body__content">
         <h2 className="body__title">{title}</h2>
         <p className="body__text">{text}</p>
-        <button className="body__button">Learn More</button>
+        <button className="body__button" onClick={handleLearnMore}>
+          Learn More
+        </button>
       </div>
     </div>
   );
@@ -63,8 +79,14 @@ export const BodyBlockRight = ({
   imageSrc,
   imageStyle,
   index,
+  learnMoreLink,
 }) => {
   const [blockRef, isVisible] = useIntersectionObserver({ threshold: 0.2 });
+  const navigate = useNavigate();
+
+  const handleLearnMore = () => {
+    navigate(learnMoreLink);
+  };
 
   return (
     <div
@@ -85,7 +107,9 @@ export const BodyBlockRight = ({
       <div className="body__content">
         <h2 className="body__title">{title}</h2>
         <p className="body__text">{text}</p>
-        <button className="body__button">Learn More</button>
+        <button className="body__button" onClick={handleLearnMore}>
+          Learn More
+        </button>
       </div>
     </div>
   );
@@ -103,7 +127,7 @@ const Body = ({ blocks }) => {
       {/* Hero Section */}
       <section className="body__hero">
         <h1 className="body__hero-title animate-fade-in delay-100">
-          RISING STARS
+          A Rhythmic Rebellion
         </h1>
         <p className="body__hero-subtitle animate-fade-in delay-200">
           In a world where music is forbidden, three unlikely heroes rise to
@@ -128,6 +152,7 @@ const Body = ({ blocks }) => {
               imageSrc={block.imageSrc}
               imageStyle={block.imageStyle}
               index={index}
+              learnMoreLink={block.learnMoreLink}
             />
           ) : (
             <BodyBlockRight
@@ -137,6 +162,7 @@ const Body = ({ blocks }) => {
               imageSrc={block.imageSrc}
               imageStyle={block.imageStyle}
               index={index}
+              learnMoreLink={block.learnMoreLink}
             />
           )
         )}
