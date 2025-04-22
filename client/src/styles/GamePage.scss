@@ -5,47 +5,239 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 80px);
-  background-color: #111;
-  padding: 20px;
-  color: #fff; // White text for contrast against dark background
+  background-color: #0a0a0a;
+  padding: 2rem 1rem;
+  color: #fff;
   flex-direction: column;
   font-family: Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+
+  // Add subtle background pattern
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%2307ff00' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.3;
+    z-index: 0;
+  }
 }
 
 .game-container {
   width: 90%;
   max-width: 1200px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  padding: 20px;
+  background: linear-gradient(
+    145deg,
+    rgba(20, 20, 20, 0.9),
+    rgba(10, 10, 10, 0.95)
+  );
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
   text-align: center;
-}
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 
-.game-container iframe {
-  width: 100%; // Ensure the iframe takes up the full width of the container
-  height: 700px; // Adjust height for better viewing
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 15px rgba(7, 255, 0, 0.2);
-  margin-top: 20px;
-  background-color: #000;
+  // Add subtle glow effect
+  &::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+      45deg,
+      rgba(7, 255, 0, 0.1),
+      transparent,
+      rgba(7, 255, 0, 0.1),
+      transparent
+    );
+    border-radius: 17px;
+    z-index: -1;
+    animation: borderGlow 10s linear infinite;
+    opacity: 0.5;
+  }
 }
 
 .game-header {
   color: #ffffff;
-  font-size: 2rem;
-  margin-bottom: 20px;
-  text-shadow: 0 0 5px rgba(7, 255, 0, 0.5);
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(7, 255, 0, 0.3);
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: #07ff00;
+    box-shadow: 0 0 10px rgba(7, 255, 0, 0.5);
+  }
+}
+
+.game-description {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.game-frame-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(7, 255, 0, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &:hover::before {
+    opacity: 0.1;
+  }
+}
+
+.game-container iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+  display: block;
+  background-color: #000;
+  transition: transform 0.3s ease;
+}
+
+.game-loading {
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  margin: 2rem 0;
+  position: relative;
+
+  &::after {
+    content: "...";
+    animation: loadingDots 1.5s infinite;
+  }
+}
+
+.game-error {
+  padding: 2rem;
+  font-size: 1.2rem;
+  color: #ff6b6b;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 2rem 0;
+  border-left: 4px solid #ff6b6b;
+}
+
+.game-controls {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.game-control-button {
+  padding: 0.8rem 1.5rem;
+  background-color: rgba(7, 255, 0, 0.1);
+  color: #07ff00;
+  border: 1px solid #07ff00;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #07ff00;
+    color: #000;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(7, 255, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes borderGlow {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 300% 0%;
+  }
+}
+
+@keyframes loadingDots {
+  0%,
+  20% {
+    content: ".";
+  }
+  40% {
+    content: "..";
+  }
+  60%,
+  100% {
+    content: "...";
+  }
 }
 
 @media (max-width: 768px) {
   .game-container {
-    width: 100%;
-    padding: 10px;
+    width: 95%;
+    padding: 1rem;
+  }
+
+  .game-header {
+    font-size: 2rem;
+  }
+
+  .game-description {
+    font-size: 1rem;
+    padding: 0 1rem;
   }
 
   .game-container iframe {
     height: 500px;
+  }
+
+  .game-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-control-button {
+    width: 100%;
+    text-align: center;
   }
 }
