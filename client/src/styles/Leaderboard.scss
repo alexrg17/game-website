@@ -1,11 +1,11 @@
 @use "sass:color";
 
-// Adjust these variables to match your existing theme
-$primary-bg: #111; // Dark background
-$secondary-bg: #222; // Slightly lighter background
+// Variables
+$primary-bg: #111;
+$secondary-bg: #1a1a1a;
 $accent-color: #07ff00;
-$text-color: #fff; // White text
-$border-radius: 8px;
+$text-color: #fff;
+$border-radius: 12px;
 $box-shadow-color: rgba(0, 0, 0, 0.5);
 
 // Set a dark background for the entire page
@@ -19,22 +19,56 @@ body {
 
 // Container for the leaderboard
 .leaderboard {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, $primary-bg, $secondary-bg);
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 26, 26, 0.9),
+    rgba(17, 17, 17, 0.9)
+  );
   color: $text-color;
   border-radius: $border-radius;
-  box-shadow: 0 0 10px $box-shadow-color;
+  box-shadow: 0 10px 30px $box-shadow-color;
+  position: relative;
+  overflow: hidden;
+
+  // Background pattern
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2307ff00' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.3;
+    z-index: 0;
+  }
 
   // Title at the top
   h2 {
     text-align: center;
-    margin-bottom: 1rem;
-    font-size: 2rem;
-    letter-spacing: 1px;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: $accent-color; // Make the title stand out
+    color: $accent-color;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 15px rgba(7, 255, 0, 0.3);
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background-color: $accent-color;
+      box-shadow: 0 0 10px rgba(7, 255, 0, 0.5);
+    }
   }
 
   // Loading, error, or empty states
@@ -43,83 +77,77 @@ body {
   &__empty {
     text-align: center;
     font-size: 1.2rem;
-    margin: 2rem 0;
+    margin: 3rem 0;
     color: $text-color;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: $border-radius;
+    position: relative;
+    z-index: 1;
   }
 
-  // List container for leaderboard items
-  &__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  // Level selector
+  &__level-selector {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: $border-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 350px;
+    border: 1px solid #333;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
-    .leaderboard__item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: color.scale($secondary-bg, $lightness: 10%);
-      margin-bottom: 0.5rem;
-      padding: 0.8rem 1rem;
-      border-radius: $border-radius;
-      transition: background-color 0.3s ease;
-
-      &:hover {
-        background-color: color.scale($secondary-bg, $lightness: 20%);
-      }
-
-      .leaderboard__rank {
-        font-weight: bold;
-        font-size: 1.2rem;
-        margin-right: 1rem;
-        color: $accent-color;
-      }
-
-      .leaderboard__username {
-        flex: 1;
-        font-size: 1rem;
-        font-weight: 500;
-      }
-
-      .leaderboard__score {
-        font-size: 1rem;
-        font-weight: bold;
-        color: $accent-color;
-      }
-
-      .leaderboard__position {
-        width: 30px;
-        text-align: left;
-      }
-
-      .leaderboard__username {
-        flex: 1;
-      }
-
-      .leaderboard__score {
-        width: 80px;
-        text-align: right;
-        padding-right: 10px;
-      }
-
-      .leaderboard__time {
-        width: 100px;
-        text-align: center;
-        font-family: monospace; // For better time alignment
-        color: #0df;
-      }
+    label {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 1rem;
     }
   }
 
+  &__level-select {
+    background-color: #222;
+    color: #ffffff;
+    border: 1px solid $accent-color;
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    min-width: 180px;
+    text-align: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #333;
+      box-shadow: 0 0 10px rgba(7, 255, 0, 0.3);
+    }
+
+    option {
+      background-color: #222;
+      padding: 10px;
+    }
+  }
+
+  // Headers
   &__headers {
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.75rem;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.9rem;
     color: $accent-color;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(7, 255, 0, 0.2);
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: $border-radius $border-radius 0 0;
   }
 
   &__header-item {
@@ -148,61 +176,82 @@ body {
     }
   }
 
-  &__level-selector {
-    margin: 20px auto;
-    padding: 10px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    max-width: 300px;
-    border: 1px solid #444;
+  // List container for leaderboard items
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
 
-    label {
-      color: #ffffff;
-      font-weight: 500;
-      font-size: 16px;
+    .leaderboard__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(40, 40, 40, 0.5);
+      margin-bottom: 0.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: $border-radius;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+
+      &:hover {
+        background-color: rgba(50, 50, 50, 0.7);
+        transform: translateX(5px);
+        border-left-color: $accent-color;
+      }
+
+      .leaderboard__position {
+        width: 30px;
+        text-align: left;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .leaderboard__username {
+        flex: 1;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .leaderboard__score {
+        width: 80px;
+        text-align: right;
+        padding-right: 10px;
+        font-weight: bold;
+        color: $accent-color;
+        font-size: 1.1rem;
+      }
+
+      .leaderboard__time {
+        width: 100px;
+        text-align: center;
+        font-family: monospace;
+        color: #0df;
+        background-color: rgba(0, 221, 255, 0.1);
+        padding: 0.3rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .leaderboard__rank {
+        font-weight: bold;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        margin-left: 10px;
+        display: inline-block;
+        min-width: 80px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
     }
   }
 
-  &__level-select {
-    background-color: #2a2a2a;
-    color: #ffffff;
-    border: 1px solid #07ff00;
-    border-radius: 4px;
-    padding: 8px 12px;
-    font-size: 14px;
-    cursor: pointer;
-    outline: none;
-    min-width: 150px;
-    text-align: center;
-
-    &:hover {
-      background-color: #3a3a3a;
-    }
-
-    option {
-      background-color: #2a2a2a;
-      padding: 5px;
-    }
-  }
-
-  &__rank {
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 10px;
-    display: inline-block;
-    min-width: 80px;
-    text-align: center;
-  }
-
+  // Rank styles
   .rank-gold {
     background-color: rgba(255, 215, 0, 0.2);
     color: #ffd700;
     border: 1px solid #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
   }
 
   .rank-silver {
@@ -224,63 +273,63 @@ body {
   }
 }
 
-@media (max-width: 600px) {
+// Responsive adjustments
+@media (max-width: 768px) {
   .leaderboard {
-    &__item {
-      flex-wrap: wrap;
-      padding: 8px;
-    }
+    margin: 2rem 1rem;
+    padding: 1.5rem;
 
-    &__position {
-      width: 10%;
-    }
-
-    &__username {
-      width: 40%;
-    }
-
-    &__score {
-      width: 20%;
-    }
-
-    &__rank {
-      width: 100%;
-      margin-left: 0;
-      margin-top: 5px;
-    }
-
-    &__time {
-      width: 30%;
-      font-size: 0.9rem;
+    h2 {
+      font-size: 2rem;
     }
 
     &__headers {
-      padding: 8px;
+      padding: 0.8rem;
     }
 
-    &__header-item {
-      &.leaderboard__position-header {
-        width: 10%;
-      }
-
-      &.leaderboard__username-header {
-        width: 40%;
-      }
-
-      &.leaderboard__score-header {
-        width: 20%;
-        text-align: right;
-      }
-
-      &.leaderboard__rank-header {
-        width: 20%;
-        text-align: right;
-      }
-
-      &.leaderboard__time-header {
-        width: 30%;
-        text-align: center;
-      }
+    &__item {
+      padding: 0.8rem;
     }
+
+    &__position {
+      width: 10% !important;
+    }
+
+    &__username {
+      width: 40% !important;
+    }
+
+    &__score {
+      width: 20% !important;
+    }
+
+    &__time {
+      width: 30% !important;
+      font-size: 0.9rem !important;
+    }
+  }
+}
+
+// Animation for items
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.leaderboard__item {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+// Staggered animation for items
+@for $i from 1 through 20 {
+  .leaderboard__item:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.05}s;
   }
 }
