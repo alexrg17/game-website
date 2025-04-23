@@ -62,24 +62,24 @@ const Footer = () => {
               <h3 className="footer__heading">Resources</h3>
               <ul className="footer__list">
                 <li>
-                  <Link to="/help" className="footer__link">
+                  <a href="#" className="footer__link">
                     Help Center
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/guide" className="footer__link">
+                  <a href="#" className="footer__link">
                     Game Guide
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/community" className="footer__link">
+                  <a href="#" className="footer__link">
                     Community
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/news" className="footer__link">
+                  <a href="#" className="footer__link">
                     News
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -88,19 +88,19 @@ const Footer = () => {
               <h3 className="footer__heading">Legal</h3>
               <ul className="footer__list">
                 <li>
-                  <Link to="/privacy" className="footer__link">
+                  <a href="#" className="footer__link">
                     Privacy Policy
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/terms" className="footer__link">
+                  <a href="#" className="footer__link">
                     Terms of Service
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/cookies" className="footer__link">
+                  <a href="#" className="footer__link">
                     Cookie Policy
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>

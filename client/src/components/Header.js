@@ -1,13 +1,5 @@
-"use client";
-
 import { useState, useContext, useEffect, useRef } from "react";
-import {
-  FaUserCircle,
-  FaBars,
-  FaTimes,
-  FaShoppingBag,
-  FaGlobe,
-} from "react-icons/fa";
+import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import StarilumLogo from "../assets/starilum-logo.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -71,7 +63,7 @@ function Header() {
     };
   }, []);
 
-  // Add scroll effect - simplified without banner adjustments
+  // Add scroll effect
   useEffect(() => {
     const handleScroll = () => {
       const header = document.querySelector(".header");
@@ -144,26 +136,6 @@ function Header() {
             >
               Leaderboard
             </button>
-          </li>
-          <li>
-            <a
-              href="https://starilum-merch.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="header__nav-button header__nav-button--special"
-            >
-              <FaShoppingBag className="header__nav-icon" /> Merch
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://starilum.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="header__nav-button"
-            >
-              <FaGlobe className="header__nav-icon" /> Main Site
-            </a>
           </li>
         </ul>
       </nav>
