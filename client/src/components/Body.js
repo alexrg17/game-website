@@ -127,7 +127,7 @@ const Body = ({ blocks }) => {
       {/* Hero Section */}
       <section className="body__hero">
         <h1 className="body__hero-title animate-fade-in delay-100">
-          A Rhythmic Rebellion
+          Rising Stars
         </h1>
         <p className="body__hero-subtitle animate-fade-in delay-200">
           In a world where music is forbidden, three unlikely heroes rise to
