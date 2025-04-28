@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
   }
 
   // If authenticated or already in guest mode, show the protected content
-  if (isAuthenticated || isGuest) {
+  if (isAuthenticated || isGuest === true) {
     return children;
   }
 

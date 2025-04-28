@@ -36,6 +36,8 @@ export const AuthProvider = ({ children }) => {
         // Check if we should restore guest mode
         if (guestMode) {
           setIsGuest(true);
+        } else {
+          setIsGuest(false);
         }
       }
     } else {
@@ -45,6 +47,8 @@ export const AuthProvider = ({ children }) => {
       // Check if we should restore guest mode
       if (guestMode) {
         setIsGuest(true);
+      } else {
+        setIsGuest(false);
       }
     }
     setLoading(false); // Once finished checking, set loading to false
@@ -86,6 +90,7 @@ export const AuthProvider = ({ children }) => {
     setIsGuest(true);
     setIsAuthenticated(false);
     setUser(null);
+    console.log("Guest mode enabled"); // Add logging for debugging
   };
 
   // Add function to disable guest mode

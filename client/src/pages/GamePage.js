@@ -9,7 +9,7 @@ import {
   FaExpand,
   FaCompress,
   FaQuestionCircle,
-  FaUserCircle,
+  FaUserSecret,
 } from "react-icons/fa";
 
 function GamePage() {
@@ -106,9 +106,9 @@ function GamePage() {
   return (
     <div className="game-page">
       {/* Guest Mode Banner - only show if in guest mode */}
-      {isGuest && (
+      {isGuest === true && (
         <div className="game-page__guest-banner">
-          <FaUserCircle className="game-page__guest-icon" />
+          <FaUserSecret className="game-page__guest-icon" />
           <span>Playing as Guest</span>
           <div className="game-page__guest-message">
             Your progress won't be saved. <a href="/login">Login or Register</a>{" "}
