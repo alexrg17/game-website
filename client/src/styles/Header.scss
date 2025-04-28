@@ -207,6 +207,23 @@ $icon-size: 1.8rem;
     }
   }
 
+  &__profile--guest {
+    background-color: rgba(0, 221, 255, 0.1);
+    border: 1px solid rgba(0, 221, 255, 0.3);
+
+    &:hover {
+      background-color: rgba(0, 221, 255, 0.2);
+    }
+  }
+
+  &__username--guest {
+    color: #0df;
+
+    .header__profile:hover & {
+      color: lighten(#0df, 10%);
+    }
+  }
+
   // Mobile menu button
   &__mobile-toggle {
     display: none;

@@ -1,5 +1,7 @@
+"use client";
+
 import { useState, useContext, useEffect, useRef } from "react";
-import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
+import { FaUserCircle, FaBars, FaTimes, FaUserSecret } from "react-icons/fa";
 import StarilumLogo from "../assets/starilum-logo.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -7,7 +9,8 @@ import "../styles/Header.scss";
 
 function Header() {
   const navigate = useNavigate();
-  const { isAuthenticated, user, logout, loading } = useContext(AuthContext);
+  const { isAuthenticated, isGuest, user, logout, loading } =
+    useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -42,6 +45,11 @@ function Header() {
   const goToHome = () => {
     setMobileMenuOpen(false);
     navigate("/");
+  };
+
+  const goToLogin = () => {
+    setMobileMenuOpen(false);
+    navigate("/login");
   };
 
   // Close dropdown when clicking outside
@@ -160,6 +168,30 @@ function Header() {
               onClick={(e) => e.stopPropagation()}
             >
               <button onClick={handleLogout}>Logout</button>
+            </div>
+          </div>
+        ) : isGuest ? (
+          <div
+            className="header__profile header__profile--guest"
+            ref={profileRef}
+          >
+            <button
+              type="button"
+              aria-label="Guest Profile"
+              className="header__icon-button"
+              onClick={toggleDropdown}
+            >
+              <FaUserSecret />
+            </button>
+            <span className="header__username header__username--guest">
+              Guest
+            </span>
+            <div
+              className={`header__dropdown ${dropdownOpen ? "active" : ""}`}
+              ref={dropdownRef}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button onClick={goToLogin}>Login / Register</button>
             </div>
           </div>
         ) : (

@@ -9,11 +9,12 @@ import {
   FaExpand,
   FaCompress,
   FaQuestionCircle,
+  FaUserCircle,
 } from "react-icons/fa";
 
 function GamePage() {
-  // Destructure user from AuthContext
-  const { user } = useContext(AuthContext);
+  // Destructure user and isGuest from AuthContext
+  const { user, isGuest } = useContext(AuthContext);
   const [gameLoading, setGameLoading] = useState(true);
   const [gameError, setGameError] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -21,10 +22,13 @@ function GamePage() {
   const iframeRef = useRef(null);
 
   // Safely extract the username (or default to an empty string)
-  const username = user?.username || "";
+  const username = user?.username || (isGuest ? "guest" : "");
 
   // Use window.location.origin for absolute path
-  const gamePath = `${window.location.origin}/BuildDb/index.html?userId=${username}`;
+  // Add a guest parameter if in guest mode
+  const gamePath = `${
+    window.location.origin
+  }/BuildDb/index.html?userId=${username}${isGuest ? "&guest=true" : ""}`;
 
   useEffect(() => {
     console.log("Game iframe source:", gamePath);
@@ -101,6 +105,18 @@ function GamePage() {
 
   return (
     <div className="game-page">
+      {/* Guest Mode Banner - only show if in guest mode */}
+      {isGuest && (
+        <div className="game-page__guest-banner">
+          <FaUserCircle className="game-page__guest-icon" />
+          <span>Playing as Guest</span>
+          <div className="game-page__guest-message">
+            Your progress won't be saved. <a href="/login">Login or Register</a>{" "}
+            to save scores and compete on leaderboards!
+          </div>
+        </div>
+      )}
+
       <div className="game-container">
         <h1 className="game-header">Starilum: A Rhythmic Rebellion</h1>
 

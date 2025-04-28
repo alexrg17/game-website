@@ -25,6 +25,50 @@
     opacity: 0.3;
     z-index: 0;
   }
+
+  // Guest mode banner styles
+  &__guest-banner {
+    width: 100%;
+    background-color: rgba(0, 221, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 221, 255, 0.3);
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 10;
+    animation: slideDown 0.5s ease-out;
+
+    span {
+      font-weight: 600;
+      color: #0df;
+    }
+  }
+
+  &__guest-icon {
+    color: #0df;
+    font-size: 1.3rem;
+  }
+
+  &__guest-message {
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+
+    a {
+      color: #0df;
+      text-decoration: underline;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: lighten(#0df, 10%);
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 .game-container {
@@ -212,6 +256,15 @@
   }
 }
 
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .game-container {
     width: 95%;
@@ -239,5 +292,20 @@
   .game-control-button {
     width: 100%;
     text-align: center;
+  }
+
+  .game-page__guest-banner {
+    flex-direction: column;
+    padding: 1rem;
+    text-align: center;
+
+    span {
+      margin-bottom: 0.5rem;
+    }
+
+    .game-page__guest-message {
+      margin-left: 0;
+      margin-top: 0.5rem;
+    }
   }
 }
