@@ -32,20 +32,28 @@ const Login = () => {
     setError("");
 
     try {
-      // Send POST request to the login endpoint
+      // Send POST request with rememberMe included
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/api/auth/login`,
         {
           email,
           password,
+          rememberMe, // Include the rememberMe state
         }
       );
+
       setSuccess(response.data.message || "Login successful!");
 
-      // Store the token in localStorage
-      localStorage.setItem("token", response.data.token);
+      // Store token based on rememberMe setting
+      if (rememberMe) {
+        localStorage.setItem("token", response.data.token);
+        sessionStorage.removeItem("token");
+      } else {
+        sessionStorage.setItem("token", response.data.token);
+        localStorage.removeItem("token");
+      }
 
-      // Update the authentication state
+      // Continue with your existing code...
       let decoded;
       try {
         decoded = jwtDecode(response.data.token);
@@ -60,10 +68,8 @@ const Login = () => {
         return;
       }
 
-      // Redirect to the homepage after a short delay (1 second)
-      setTimeout(() => {
-        navigate("/");
-      }, 1000);
+      // Redirect after successful login
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Server error");
     }

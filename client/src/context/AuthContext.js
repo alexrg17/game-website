@@ -13,7 +13,8 @@ export const AuthProvider = ({ children }) => {
 
   // Check localStorage and initialize the state on app load
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token =
+      localStorage.getItem("token") || sessionStorage.getItem("token");
     // Check if user is in guest mode
     const guestMode = localStorage.getItem("guestMode") === "true";
 

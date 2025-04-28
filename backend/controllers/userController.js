@@ -51,9 +51,9 @@ const registerUser = async (req, res) => {
 
 // Login User Controller
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body; // Extract rememberMe parameter
 
-  // Check that both fields are provided
+  // Check that required fields are provided
   if (!email || !password) {
     return res.status(400).json({ message: "Email and password are required" });
   }
@@ -61,7 +61,6 @@ const loginUser = async (req, res) => {
   try {
     // Find user by email
     const user = await User.findOne({ email });
-    // Use a generic error message for both not-found and password mismatch
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
@@ -72,11 +71,14 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    // Generate a JWT token including username in the payload
+    // Set different expiration time based on rememberMe
+    const expirationTime = rememberMe ? "7d" : "1h"; // 7 days vs 1 hour
+
+    // Generate a JWT token
     const token = jwt.sign(
       { userId: user._id, email: user.email, username: user.username },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" } // You can move this to an env variable if needed
+      { expiresIn: expirationTime }
     );
 
     res.status(200).json({ token, message: "Login successful" });
