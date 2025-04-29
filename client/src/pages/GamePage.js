@@ -9,12 +9,13 @@ import {
   FaExpand,
   FaCompress,
   FaQuestionCircle,
-  FaUserSecret,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function GamePage() {
+  const navigate = useNavigate();
   // Destructure user and isGuest from AuthContext
-  const { user, isGuest } = useContext(AuthContext);
+  const { isAuthenticated, isGuest, user } = useContext(AuthContext);
   const [gameLoading, setGameLoading] = useState(true);
   const [gameError, setGameError] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -105,15 +106,13 @@ function GamePage() {
 
   return (
     <div className="game-page">
-      {/* Guest Mode Banner - only show if in guest mode */}
-      {isGuest === true && (
+      {/* Only show banner if NOT authenticated AND in guest mode */}
+      {!isAuthenticated && isGuest && (
         <div className="game-page__guest-banner">
-          <FaUserSecret className="game-page__guest-icon" />
-          <span>Playing as Guest</span>
-          <div className="game-page__guest-message">
-            Your progress won't be saved. <a href="/login">Login or Register</a>{" "}
-            to save scores and compete on leaderboards!
-          </div>
+          Playing as guest. Your progress won't be saved.
+          <button onClick={() => navigate("/login")}>
+            Login to Save Progress
+          </button>
         </div>
       )}
 

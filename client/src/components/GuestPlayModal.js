@@ -1,10 +1,18 @@
 "use client";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserCircle, FaGamepad, FaTrophy, FaSave } from "react-icons/fa";
+import { AuthContext } from "../context/AuthContext"; // Add AuthContext import
 import "../styles/GuestPlayModal.scss";
 
 const GuestPlayModal = ({ onContinueAsGuest }) => {
   const navigate = useNavigate();
+  const { enableGuestMode } = useContext(AuthContext);
+
+  const handleGuestPlay = () => {
+    enableGuestMode();
+    onContinueAsGuest();
+  };
 
   return (
     <div className="guest-play-modal-overlay">
@@ -53,7 +61,7 @@ const GuestPlayModal = ({ onContinueAsGuest }) => {
               </ul>
               <button
                 className="guest-play-modal__button guest-play-modal__button--secondary"
-                onClick={onContinueAsGuest}
+                onClick={handleGuestPlay}
               >
                 Continue as Guest
               </button>

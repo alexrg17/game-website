@@ -1,14 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext"; // Import AuthContext
-import { jwtDecode } from "jwt-decode"; // Correct import for jwt-decode
+import { AuthContext } from "../context/AuthContext";
+import { jwtDecode } from "jwt-decode";
 import "../styles/Login.scss";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, setIsAuthenticated, setUser } =
-    useContext(AuthContext); // Get auth state and setters
+  const { isAuthenticated, setIsAuthenticated, setUser, setIsGuest } =
+    useContext(AuthContext); // Added setIsGuest here
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,7 +68,11 @@ const Login = () => {
         return;
       }
 
-      // Redirect after successful login
+      // Clear any guest mode flags
+      localStorage.removeItem("guestMode");
+      setIsGuest(false); // If you have this in your context
+
+      // Continue with navigation
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Server error");

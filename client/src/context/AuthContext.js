@@ -3,7 +3,14 @@
 import { createContext, useState, useEffect } from "react";
 import { jwtDecode } from "jwt-decode"; // Correct import for jwt-decode
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({
+  isAuthenticated: false,
+  isGuest: false,
+  user: null,
+  setIsAuthenticated: () => {},
+  setIsGuest: () => {},
+  setUser: () => {},
+});
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,11 +64,15 @@ export const AuthProvider = ({ children }) => {
 
   // Add login function
   const login = (token) => {
+    // Store token
     localStorage.setItem("token", token);
+
     // Clear guest mode when logging in
     localStorage.removeItem("guestMode");
     setIsGuest(false);
 
+    // Set authenticated state
+    setIsAuthenticated(true);
     try {
       const decoded = jwtDecode(token);
       setUser({
@@ -69,7 +80,6 @@ export const AuthProvider = ({ children }) => {
         userId: decoded.userId,
         username: decoded.username,
       });
-      setIsAuthenticated(true);
     } catch (error) {
       console.error("Token decoding error during login:", error);
       logout();
@@ -104,16 +114,16 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
-        setIsAuthenticated,
         isGuest,
-        setIsGuest,
-        enableGuestMode,
-        disableGuestMode,
         user,
+        setIsAuthenticated,
+        setIsGuest,
         setUser,
-        login, // Add login function to context
+        login,
         logout,
         loading,
+        enableGuestMode, // Add this
+        disableGuestMode, // Add this
       }}
     >
       {children}
