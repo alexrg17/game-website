@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/ForgotPassword.scss"; // Use the dedicated stylesheet
 
 const ForgotPassword = () => {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const location = useLocation(); // Import useLocation from react-router-dom at the top
+  const navigate = useNavigate(); // Initialize navigate using useNavigate
+
+  // Extract email from URL parameters
+  const urlParams = new URLSearchParams(location.search);
+  const emailFromURL = urlParams.get("email") || "";
+
+  const [email, setEmail] = useState(emailFromURL);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,12 +102,9 @@ const ForgotPassword = () => {
           <div className="form-group">
             <input
               type="email"
-              placeholder="Email Address"
+              placeholder="Email"
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setError(""); // Clear error when user types
-              }}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>

@@ -10,12 +10,11 @@ import {
   FaCompress,
   FaQuestionCircle,
 } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+// Removed unused useNavigate import
 
 function GamePage() {
-  const navigate = useNavigate();
   // Destructure user and isGuest from AuthContext
-  const { isAuthenticated, isGuest, user } = useContext(AuthContext);
+  const { isGuest, user } = useContext(AuthContext);
   const [gameLoading, setGameLoading] = useState(true);
   const [gameError, setGameError] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -106,7 +105,7 @@ function GamePage() {
 
   return (
     <div className="game-page">
-      {/* Only show banner if NOT authenticated AND in guest mode */}
+      {/* Temporarily commented out guest banner 
       {!isAuthenticated && isGuest && (
         <div className="game-page__guest-banner">
           Playing as guest. Your progress won't be saved.
@@ -115,6 +114,7 @@ function GamePage() {
           </button>
         </div>
       )}
+      */}
 
       <div className="game-container">
         <h1 className="game-header">Starilum: A Rhythmic Rebellion</h1>

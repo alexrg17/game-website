@@ -116,7 +116,9 @@ const Login = () => {
             <button
               type="button"
               className="forgot-password"
-              onClick={() => navigate("/forgot-password")}
+              onClick={() =>
+                navigate(`/forgot-password?email=${encodeURIComponent(email)}`)
+              }
             >
               Forgot Password?
             </button>
