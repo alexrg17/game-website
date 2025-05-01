@@ -3,8 +3,9 @@ import {
   FaInstagram,
   FaTiktok,
   FaYoutube,
-  FaTwitter,
-  FaDiscord,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaSpotify,
   FaShoppingBag,
 } from "react-icons/fa";
 import StarilumLogo from "../assets/starilum-logo.png";
@@ -62,24 +63,24 @@ const Footer = () => {
               <h3 className="footer__heading">Resources</h3>
               <ul className="footer__list">
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/help" className="footer__link">
                     Help Center
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/guide" className="footer__link">
                     Game Guide
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/community" className="footer__link">
                     Community
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/news" className="footer__link">
                     News
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -88,19 +89,19 @@ const Footer = () => {
               <h3 className="footer__heading">Legal</h3>
               <ul className="footer__list">
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/privacy" className="footer__link">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/terms" className="footer__link">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="footer__link">
+                  <Link to="/cookies" className="footer__link">
                     Cookie Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -112,51 +113,65 @@ const Footer = () => {
             <h3 className="footer__heading">Connect With Us</h3>
             <div className="footer__social-icons">
               <a
-                href="https://instagram.com"
+                href="https://www.linkedin.com/in/dorajeangillespie"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-link"
+                aria-label="LinkedIn"
+              >
+                <FaLinkedinIn />
+              </a>
+              <a
+                href="https://www.instagram.com/starilum?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer__social-link"
+                aria-label="Instagram"
               >
                 <FaInstagram />
               </a>
               <a
-                href="https://tiktok.com"
+                href="https://www.tiktok.com/@starilum?is_from_webapp=1&sender_device=pc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-link"
+                aria-label="TikTok"
               >
                 <FaTiktok />
               </a>
               <a
-                href="https://youtube.com"
+                href="https://www.youtube.com/@Starilum"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-link"
+                aria-label="YouTube"
               >
                 <FaYoutube />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://www.facebook.com/dorajeancreation/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-link"
+                aria-label="Facebook"
               >
-                <FaTwitter />
+                <FaFacebookF />
               </a>
               <a
-                href="https://discord.com"
+                href="https://open.spotify.com/show/1R5lflTeKvCvvADoN0NgIg?si=4ae1c5175dfa4803"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer__social-link"
+                aria-label="Spotify Podcast"
               >
-                <FaDiscord />
+                <FaSpotify />
               </a>
             </div>
           </div>
 
           <div className="footer__cta">
             <a
-              href="https://starilum-merch.com"
+              href="https://www.starilum.com/store"
               target="_blank"
               rel="noopener noreferrer"
               className="footer__cta-button"
@@ -165,12 +180,12 @@ const Footer = () => {
               Shop Merch
             </a>
             <a
-              href="https://starilum.com"
+              href="https://open.spotify.com/artist/6APT7qiw4UwmQAaIuRLwGq?si=b1DReolfRxOFqrpzTifxCg"
               target="_blank"
               rel="noopener noreferrer"
               className="footer__cta-button footer__cta-button--alt"
             >
-              Main Website
+              Listen on Spotify
             </a>
           </div>
         </div>
