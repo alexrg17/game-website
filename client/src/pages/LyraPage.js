@@ -14,7 +14,7 @@ const LyraPage = () => {
   return (
     <div className="story-page">
       <div className="story-container">
-        <h1 className="story-title">Sound of Resistance</h1>
+        <h1 className="story-title">Lyra</h1>
 
         <div className="story-hero">
           <img
@@ -28,7 +28,7 @@ const LyraPage = () => {
           <div className="character-profile">
             <h2>Lyra</h2>
             <p className="character-tagline">
-              "Music isn't just sound—it's the language of freedom."
+              "An athletic young woman, who loves to spread music to the world."
             </p>
 
             <div className="character-stats">
@@ -38,85 +38,52 @@ const LyraPage = () => {
               </div>
               <div className="stat">
                 <span className="stat-label">Occupation:</span>
-                <span className="stat-value">Sound Engineer</span>
+                <span className="stat-value">Rouge Music Composer</span>
               </div>
               <div className="stat">
                 <span className="stat-label">Special Ability:</span>
                 <span className="stat-value">
-                  Composition & Sound Manipulation
+                  Music Composition & Athletic Abilities
                 </span>
               </div>
             </div>
           </div>
 
-          <h2>The Prodigy</h2>
+          <h2>Spreading the Joy</h2>
           <p>
-            Lyra was born into a world without music, but her grandmother—who
-            remembered the time before the ban—secretly passed down musical
-            knowledge through stories disguised as fairy tales. As a child, Lyra
-            showed an uncanny ability to understand sound patterns, which led
-            her grandmother to risk everything by teaching her about rhythm and
-            melody.
+            Lyra was a rising music star before the music ban was put into law.
+            Still determined to spread her music, she learned how to defend
+            herself, and continued to spread music to those who need it.
           </p>
 
           <p>
-            When Lyra was twelve, her grandmother was taken away by HCA agents.
-            The official report stated she had been spreading "dangerous
-            misinformation" to children. Lyra never saw her again, but the
-            musical knowledge they had shared became her most precious
-            possession.
+            Teaming up with a fellow music lover, named Jett, they work together
+            to continue to compose and spread joy.
           </p>
 
-          <h2>The Infiltrator</h2>
+          <h2>On This Day</h2>
           <p>
-            Recognizing her exceptional talent with sound technology, the
-            government recruited Lyra to work as a sound engineer for the HCA.
-            Her job involves monitoring and adjusting the ambient noise
-            generators that fill public spaces with "safe" sound patterns
-            designed to prevent any accidental emergence of rhythm.
+            On this day, Lyra has been spotted by the city police force, and is
+            being chased, however using her athletic skills, such as walljumping
+            and sliding, she gets away so she can continue to spread music.
           </p>
 
           <p>
-            What her employers don't know is that Lyra has been using her access
-            to government sound technology to study how music works and how it
-            affects the human brain. By day, she maintains the systems that
-            suppress musical expression; by night, she composes pieces that she
-            believes could awaken the dormant musical awareness in Silton's
-            citizens.
+            However during this run, she spots someone in the back alleyways,
+            and gets an idea….
           </p>
 
-          <h2>The Composer</h2>
+          <h2>It's Up To You</h2>
           <p>
-            Using modified equipment smuggled from her workplace, Lyra has
-            created a hidden studio in her apartment where she composes and
-            records music. Her compositions combine the traditional elements her
-            grandmother taught her with innovative sounds that might bypass the
-            government's detection algorithms.
-          </p>
-
-          <p>
-            Lyra's greatest challenge has been finding a way to share her music
-            without being caught. She's developed a network of trusted friends
-            who help distribute her compositions through modified personal audio
-            devices that disguise the musical patterns as approved ambient
-            noise.
-          </p>
-
-          <p>
-            When she meets Bob and Jett, Lyra realizes that her compositions
-            could be more than just a personal rebellion—they could be the
-            catalyst for a movement that might finally break the government's
-            control over sound. With her insider knowledge of the HCA's systems
-            and her unique ability to create music that resonates with people
-            who have never consciously heard it before, Lyra becomes the
-            creative heart of the resistance.
+            You can play as Lyra in Rising Stars, and feel the rush of the track
+            High On Life, as you run, jump, and beat your personal best score.
           </p>
 
           <div className="story-navigation">
             <h3>Learn More About</h3>
             <div className="character-links">
               <Link to="/story/awakening" className="character-link">
-                <span>The Awakening</span>
+                <span>About Rising Stars</span>
               </Link>
               <Link to="/character/bob" className="character-link">
                 <span>Bob's Story</span>
